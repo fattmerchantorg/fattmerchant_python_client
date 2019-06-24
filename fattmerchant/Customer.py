@@ -1,6 +1,5 @@
-"""
 #!/bin/bash
-
+"""
 For definiting fattmerchant customer class
 """
 
@@ -38,29 +37,27 @@ class CustomerApi():
         """
         Create a Customer
         No field is required::
-            result = fattmerchant.Customer.create({
-                "company": "Some company",
-                "first_name": "John"
-
-            })
+        result = fattmerchant.Customer.create({
+        "company": "Some company",
+        "first_name": "John"
+        })
         An example of creating an customer with all available fields::
         {
-            "firstname": "John",
-            "lastname": "Smith",
-            "company": "ABC INC",
-            "email": "demo@fattmerchant.com",
-            "cc_emails": [
-                "daniel@fattmerchant.com"
-            ],
-            "phone": "1234567898",
-            "address_1": "123 Rite Way",
-            "address_2": "Unit 12",
-            "address_city": "Orlando",
-            "address_state": "FL",
-            "address_zip": "32801",
-            "address_country": "USA",
-            "reference": "BARTLE"
+        "firstname": "John",
+        "lastname": "Smith",
+        "company": "ABC INC",
+        "email": "demo@fattmerchant.com",
+        "cc_emails": ["daniel@fattmerchant.com"],
+        "phone": "1234567898",
+        "address_1": "123 Rite Way",
+        "address_2": "Unit 12",
+        "address_city": "Orlando",
+        "address_state": "FL",
+        "address_zip": "32801",
+        "address_country": "USA",
+        "reference": "BARTLE"
         }
+
         """
         endpoint = 'customer'
         body = {
@@ -86,7 +83,8 @@ class CustomerApi():
         """
         Delete a customer
         Given a customer_id::
-            result = fattmerchant.Customer.delete("my_customer_id")
+        result = fattmerchant.Customer.delete("my_customer_id")
+
         """
         pass
 
@@ -95,7 +93,7 @@ class CustomerApi():
         Find an customer, given a customer_id.  This does not return a result
         object.  This will raise a :class:`NotFoundError <fattmerchant.exceptions.not_found_error.NotFoundError>` if the provided customer_id
         is not found. ::
-            customer = fattmerchant.Customer.find("my_customer_id")
+        customer = fattmerchant.Customer.find("my_customer_id")
         """
         endpoint = "customer/{}".format(customer_id)
         return self.request.get_request(endpoint)
@@ -103,6 +101,7 @@ class CustomerApi():
     def payment_methods_for(self, customer_id):
         """
         Find all payment methods for a given customer
+
         """
         endpoint = "customer/{}/payment-method".format(customer_id)
         return self.request.get_request(endpoint)
@@ -111,9 +110,10 @@ class CustomerApi():
         """
         Update an existing Customer
         By customer_id. The params are similar to create::
-            result = fattmerchant.Customer.update("my_customer_id", {
-                "last_name": "Smith"
-            })
+        result = fattmerchant.Customer.update("my_customer_id", {
+        "last_name": "Smith"
+        })
+
         """
         endpoint = 'customer/{}'.format(id)
         body = {

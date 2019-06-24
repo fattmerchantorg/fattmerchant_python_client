@@ -1,5 +1,5 @@
-"""
 #!/bin/bash
+"""
 
 For definiting fattmerchant merhcant class
 """
