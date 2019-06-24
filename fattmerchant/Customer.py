@@ -6,7 +6,7 @@ For definiting fattmerchant customer class
 __author__ = "tanmay.datta86@gmail.com"
 
 from .inventory import CreditCard, Address, BankAccount
-from FMRequestHelper import FMRequest
+from .FMRequestHelper import FMRequest
 
 class CustomerApi():
     """
