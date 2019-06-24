@@ -1,7 +1,7 @@
 #!/bin/bash
 """
 
-For definiting fattmerchant merhcant class
+For defining fattmerchant merhcant class
 """
 
 __author__ = "tanmay.datta86@gmail.com"

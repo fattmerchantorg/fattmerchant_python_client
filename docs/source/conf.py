@@ -12,10 +12,20 @@
 #
 import os
 import sys
+import guzzle_sphinx_theme
 sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../fattmerchant'))
 
 
+html_theme_path = guzzle_sphinx_theme.html_theme_path()
+html_theme = 'guzzle_sphinx_theme'
+
+
+# Guzzle theme options (see theme.conf for more information)
+html_theme_options = {
+    # Set the name of the project to appear in the sidebar
+    "project_nav_name": "fattmerchant client",
+}
 # -- Project information -----------------------------------------------------
 
 project = 'fattmerchant'
@@ -32,7 +42,7 @@ release = '0.0.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [ 'sphinx.ext.autodoc', 'sphinx.ext.coverage',
-'sphinx.ext.napoleon'
+'sphinx.ext.napoleon', "guzzle_sphinx_theme"
 ]
 
 # Add any paths that contain templates here, relative to this directory.

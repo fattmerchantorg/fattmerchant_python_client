@@ -10,6 +10,13 @@ Welcome to fattmerchant's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
 Fattmerchant Customer
 =====================
 .. automodule:: fattmerchant.Customer
@@ -25,10 +32,3 @@ Fattmerchant Helper functions
 =====================
 .. automodule:: fattmerchant.utils
     :members:
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
