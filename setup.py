@@ -11,7 +11,7 @@ setuptools.setup(
     description="python client for fattmerchant payment processing",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/fattmerchant",
+    url="https://github.com/fattmerchantorg/fattmerchant_python_client",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
