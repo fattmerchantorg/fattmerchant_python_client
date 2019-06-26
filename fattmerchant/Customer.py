@@ -7,13 +7,19 @@ __author__ = "tanmay.datta86@gmail.com"
 
 from .inventory import CreditCard, Address, BankAccount
 from .FMRequestHelper import FMRequest
+import logging
+
+logger = logging.getLogger(__name__)
 
 class CustomerApi():
     """
     Helper class for getting customer related information.
     """
-    def __init__(self, api_key, merchant_id, request, company=None):
-        self.api_key =  api_key
+
+    def __init__(self, api_key, merchant_id=None,
+                 request=None, company=None):
+        logging.debug("creating customer")
+        self.api_key = api_key
         self.request = request if request else FMRequest()
         #self.request.set_api_key(self.api_key)
         self.merchant_id = merchant_id
