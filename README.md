@@ -1,5 +1,6 @@
-# Example Package
+# Fattmerchant python client
 
-This is a simple example package. You can use
-[Github-flavored Markdown](https://guides.github.com/features/mastering-markdown/)
-to write your content.
+This package aims to provide assitance while interacting with the
+[Fattmerchant](https://fattmerchant.com/api-documentation/) rest API. 
+
+This is the official python client which is supported by fattmerchant and bugs/issues/feature-requests can be posted on the official [github](https://github.com/fattmerchantorg/fattmerchant_python_client) page.
