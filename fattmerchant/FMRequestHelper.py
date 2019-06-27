@@ -2,8 +2,10 @@
 
 import requests
 import os
+import logging
 
 self_path = os.path.dirname(__file__)
+logger = logging.getLogger(__name__)
 
 class FMRequest():
     "Call to get valid fattmerchant request"
@@ -15,10 +17,11 @@ class FMRequest():
                        'Authorization': 'Bearer {api_key}',
                        'Accept': 'application/json'}
         self.body = None
-        self.api_key = None
+        self.api_key = FMRequest.api_key_default
 
     def get_request(self, endpoint: str, body=None):
         url = self.fm_link + "/" + endpoint
+        logger.info("trying =====> {}".format(url))
         self.body = body
         self.api_key = self.api_key_default if self.api_key is None else self.api_key
         self.update_header()
@@ -26,6 +29,8 @@ class FMRequest():
             req = requests.get(url, headers=self.header, data=self.body)
         else:
             req = requests.get(url, headers=self.header)
+        logger.info("requeste got req = {}".format(req))
+        logger.info("request answer = {}".format(req.content))
         return req.text
     
     def put_request(self, endpoint: str, body=None):
@@ -54,6 +59,6 @@ class FMRequest():
         self.api_key = key
     
     def update_header(self):
-        self.header['Authorization'] = self.header['Authorization'].format(api_key = api_key)
+        self.header['Authorization'] = self.header['Authorization'].format(api_key = self.api_key)
 
 

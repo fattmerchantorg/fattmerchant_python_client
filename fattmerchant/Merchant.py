@@ -60,12 +60,21 @@ class Merchant:
         """
         Shows all the items that merchant has in store. 
         """
-        endpoint = "items"
+        endpoint = "item"
         self.request.get_request(endpoint)
+
+    def get_all_invoices(self):
+        """
+        Gets all the invoices to customer by a merchant
+        """
+        endpoint = "invoice"
+        answer = self.request.get_request(endpoint)
+        return answer
 
     def get_items_by_code(self):
         endpoint = "item/code"
-        self.request.get_request(endpoint)
+        return self.request.get_request(endpoint)
+
 
     def set_merchant_id(self, id):
         """
