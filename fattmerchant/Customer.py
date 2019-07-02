@@ -139,3 +139,47 @@ class CustomerApi():
         }
         return self.request.put_request(endpoint=endpoint,
         body=body)
+
+class Customer:
+    """
+    The customer object given by the fatterchant api
+    """
+    def __init__(self,customer_info, merchant_id=None):
+
+        """
+        try to initiate a customer object with sane defaults
+        """
+        self.merchant_id = merchant_id # nothing should work without it in theory
+        self.id = customer_info.get("id", None)
+        self.firstname = customer_info.get("firstname", None)
+        self.lastname = customer_info.get("lastname", None)
+        self.company = customer_info.get("company", None)
+        self.email = customer_info.get("email", None)
+        self.cc_emails = customer_info.get("cc_emails", None)
+        self.phone = customer_info.get("phone", None)
+        self.address_1 = customer_info.get("address_1", None)
+        self.address_2 = customer_info.get("address_2", None)
+        self.address_city = customer_info.get("address_city", None)
+        self.address_state = customer_info.get("address_state", None)
+        self.address_zip = customer_info.get("address_zip", None)
+        self.address_country = customer_info.get("address_country", None)
+        self.notes = customer_info.get("notes", None)
+        self.reference = customer_info.get("reference", None)
+        self.options = customer_info.get("options", None)
+        self.created_at = customer_info.get("created_at", None)
+        self.updated_at = customer_info.get("updated_at", None)
+        self.deleted_at = customer_info.get("deleted_at", None)
+        self.gravatar = customer_info.get("gravatar", None)
+
+    def __repr__(self):
+        return """
+            "merchant": {mer} ,
+            "first name": {fname},
+            "last name": {lname},
+            "email": {email},
+            """.format(
+                mer=self.merchant_id,
+                fname=self.firstname,
+                lname=self.lastname,
+                email=self.email,
+            )

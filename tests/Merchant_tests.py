@@ -2,6 +2,9 @@ import unittest
 from os.path import dirname, join
 from ddt import ddt, unpack, data
 from fattmerchant.Merchant import Merchant
+import logging
+
+logger = logging.getLogger(__name__)
 
 @ddt
 class MerchantTests(unittest.TestCase):
@@ -18,6 +21,11 @@ class MerchantTests(unittest.TestCase):
     def test_creation_of_merchant(self):
         merchant = Merchant("None", 123, None)
         self.assertEqual(merchant.request.api_key, self.api_key)
+
+    def test_query_all_customers_of_merchant(self):
+        merchant = Merchant("None", 123, None)
+        all_customers = merchant.get_all_customers()
+        logger.info(all_customers)
     
     def test_getting_request(self):
         print(self.merchant.items())

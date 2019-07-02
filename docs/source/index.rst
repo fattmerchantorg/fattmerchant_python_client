@@ -29,6 +29,6 @@ Fattmerchant Merchant
 
 
 Fattmerchant Helper functions
-=====================
+=============================
 .. automodule:: fattmerchant.utils
     :members:
