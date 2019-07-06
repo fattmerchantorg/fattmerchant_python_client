@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to fattmerchant’s documentation! &#8212; fattmerchant 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-fattmerchant-s-documentation">
+<h1>Welcome to fattmerchant’s documentation!<a class="headerlink" href="#welcome-to-fattmerchant-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+<div class="section" id="module-fattmerchant.Customer">
+<span id="fattmerchant-customer"></span><h1>Fattmerchant Customer<a class="headerlink" href="#module-fattmerchant.Customer" title="Permalink to this headline">¶</a></h1>
+<p>For definiting fattmerchant customer class</p>
+<dl class="class">
+<dt id="fattmerchant.Customer.Customer">
+<em class="property">class </em><code class="sig-prename descclassname">fattmerchant.Customer.</code><code class="sig-name descname">Customer</code><span class="sig-paren">(</span><em class="sig-param">customer_info</em>, <em class="sig-param">merchant_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Customer.Customer" title="Permalink to this definition">¶</a></dt>
+<dd><p>The customer object given by the fatterchant api</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="fattmerchant.Customer.CustomerApi">
+<em class="property">class </em><code class="sig-prename descclassname">fattmerchant.Customer.</code><code class="sig-name descname">CustomerApi</code><span class="sig-paren">(</span><em class="sig-param">api_key</em>, <em class="sig-param">merchant_id=None</em>, <em class="sig-param">request=None</em>, <em class="sig-param">company=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Customer.CustomerApi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper class for getting customer related information.</p>
+<dl class="method">
+<dt id="fattmerchant.Customer.CustomerApi.all_customers">
+<em class="property">static </em><code class="sig-name descname">all_customers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Customer.CustomerApi.all_customers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a collection of all customers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fattmerchant.Customer.CustomerApi.create">
+<code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param">params</em><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Customer.CustomerApi.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Customer
+No field is required::
+result = fattmerchant.Customer.create({
+“company”: “Some company”,
+“first_name”: “John”
+})
+An example of creating an customer with all available fields::
+{
+“firstname”: “John”,
+“lastname”: “Smith”,
+“company”: “ABC INC”,
+“email”: “<a class="reference external" href="mailto:demo&#37;&#52;&#48;fattmerchant&#46;com">demo<span>&#64;</span>fattmerchant<span>&#46;</span>com</a>”,
+“cc_emails”: [“<a class="reference external" href="mailto:daniel&#37;&#52;&#48;fattmerchant&#46;com">daniel<span>&#64;</span>fattmerchant<span>&#46;</span>com</a>”],
+“phone”: “1234567898”,
+“address_1”: “123 Rite Way”,
+“address_2”: “Unit 12”,
+“address_city”: “Orlando”,
+“address_state”: “FL”,
+“address_zip”: “32801”,
+“address_country”: “USA”,
+“reference”: “BARTLE”
+}</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fattmerchant.Customer.CustomerApi.delete">
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param">customer_id</em><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Customer.CustomerApi.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a customer
+Given a customer_id::
+result = fattmerchant.Customer.delete(“my_customer_id”)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fattmerchant.Customer.CustomerApi.find">
+<code class="sig-name descname">find</code><span class="sig-paren">(</span><em class="sig-param">customer_id</em>, <em class="sig-param">association_filter_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Customer.CustomerApi.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find an customer, given a customer_id.  This does not return a result
+object.  This will raise a <code class="xref py py-class docutils literal notranslate"><span class="pre">NotFoundError</span></code> if the provided customer_id
+is not found. ::
+customer = fattmerchant.Customer.find(“my_customer_id”)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fattmerchant.Customer.CustomerApi.payment_methods_for">
+<code class="sig-name descname">payment_methods_for</code><span class="sig-paren">(</span><em class="sig-param">customer_id</em><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Customer.CustomerApi.payment_methods_for" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find all payment methods for a given customer</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fattmerchant.Customer.CustomerApi.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">customer_id</em>, <em class="sig-param">params={}</em><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Customer.CustomerApi.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update an existing Customer
+By customer_id. The params are similar to create::
+result = fattmerchant.Customer.update(“my_customer_id”, {
+“last_name”: “Smith”
+})</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-fattmerchant.Merchant">
+<span id="fattmerchant-merchant"></span><h1>Fattmerchant Merchant<a class="headerlink" href="#module-fattmerchant.Merchant" title="Permalink to this headline">¶</a></h1>
+<p>For defining fattmerchant merhcant class</p>
+<dl class="class">
+<dt id="fattmerchant.Merchant.Merchant">
+<em class="property">class </em><code class="sig-prename descclassname">fattmerchant.Merchant.</code><code class="sig-name descname">Merchant</code><span class="sig-paren">(</span><em class="sig-param">api_key</em>, <em class="sig-param">company=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Merchant.Merchant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to maintain merchant object easily</p>
+<dl class="method">
+<dt id="fattmerchant.Merchant.Merchant.create">
+<code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Merchant.Merchant.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Can be used to create merchant if the api key is good</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fattmerchant.Merchant.Merchant.get_all_customers">
+<code class="sig-name descname">get_all_customers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Merchant.Merchant.get_all_customers" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the customers for the merchant</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fattmerchant.Merchant.Merchant.get_all_invoices">
+<code class="sig-name descname">get_all_invoices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Merchant.Merchant.get_all_invoices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the invoices to customer by a merchant</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fattmerchant.Merchant.Merchant.items">
+<code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Merchant.Merchant.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows all the items that merchant has in store.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fattmerchant.Merchant.Merchant.set_merchant_id">
+<code class="sig-name descname">set_merchant_id</code><span class="sig-paren">(</span><em class="sig-param">id</em><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Merchant.Merchant.set_merchant_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>*Anti pattern here but just it is here to make sure
+we can test the library.*</strong></p>
+<p>Sets the merchant id, Required in case we are getting
+merchant info from some other source and want to use
+fattmerchant client to interact with api</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="fattmerchant.Merchant.MerchantItems">
+<em class="property">class </em><code class="sig-prename descclassname">fattmerchant.Merchant.</code><code class="sig-name descname">MerchantItems</code><span class="sig-paren">(</span><em class="sig-param">itemJson</em><span class="sig-paren">)</span><a class="headerlink" href="#fattmerchant.Merchant.MerchantItems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper Class for creating merchant items</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-fattmerchant.utils">
+<span id="fattmerchant-helper-functions"></span><h1>Fattmerchant Helper functions<a class="headerlink" href="#module-fattmerchant.utils" title="Permalink to this headline">¶</a></h1>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">fattmerchant</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Tanmay Dutta.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
