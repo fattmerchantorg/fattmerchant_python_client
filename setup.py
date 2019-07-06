@@ -13,6 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/fattmerchantorg/fattmerchant_python_client",
     packages=setuptools.find_packages(),
+    install_requires =["ddt", "requests"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
