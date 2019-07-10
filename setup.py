@@ -13,6 +13,9 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/fattmerchantorg/fattmerchant_python_client",
     packages=setuptools.find_packages(),
+    package_data = {
+        "":["*.config", "*.txt"],
+        },
     install_requires =["ddt", "requests"],
     classifiers=[
         "Programming Language :: Python :: 3",

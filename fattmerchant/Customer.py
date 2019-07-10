@@ -8,6 +8,7 @@ __author__ = "tanmay.datta86@gmail.com"
 from .inventory import CreditCard, Address, BankAccount
 from .FMRequestHelper import FMRequest
 import logging
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -104,13 +105,17 @@ class CustomerApi():
         endpoint = "customer/{}".format(customer_id)
         return self.request.get_request(endpoint)
         
-    def payment_methods_for(self, customer_id):
+    def payment_methods(self, customer_id):
         """
-        Find all payment methods for a given customer
-
+        get payment methods for the customer
         """
         endpoint = "customer/{}/payment-method".format(customer_id)
-        return self.request.get_request(endpoint)
+        payment_methods_customer = json.loads(self.request.get_request(endpoint))
+        logger.debug(payment_methods_customer)
+        if payment_methods_customer is None:
+            return list()
+        else:
+            return payment_methods_customer
 
     def update(self, customer_id, params={}):
         """
@@ -155,7 +160,11 @@ class Customer:
         self.lastname = customer_info.get("lastname", None)
         self.company = customer_info.get("company", None)
         self.email = customer_info.get("email", None)
-        self.cc_emails = customer_info.get("cc_emails", None)
+        try:
+            self.cc_emails = exec(customer_info.get("cc_emails", "[]"))
+        except:
+            logger.error("wrong cc emails got {}".format(customer_info["cc_emails"]))
+            self.cc_emails = list()
         self.phone = customer_info.get("phone", None)
         self.address_1 = customer_info.get("address_1", None)
         self.address_2 = customer_info.get("address_2", None)
@@ -170,6 +179,34 @@ class Customer:
         self.updated_at = customer_info.get("updated_at", None)
         self.deleted_at = customer_info.get("deleted_at", None)
         self.gravatar = customer_info.get("gravatar", None)
+        self.payment_methods = list()
+    
+    def update_payment_methods_for(self, payment_methods):
+        """
+        Find all payment methods for a given customer
+
+        """
+        self.payment_methods = payment_methods
+
+    def to_json(self):
+        """
+        Returns json representation that can be uploaded/post to fattmerchant api
+        """
+        return {
+            "firstname": self.firstname,
+            "lastname": self.lastname,
+            "company": self.company,
+            "email": self.email,
+            "cc_emails": self.cc_emails,
+            "phone": self.phone,
+            "address_1": self.address_1,
+            "address_2": self.address_2,
+            "address_city": self.address_city,
+            "address_state": self.address_state,
+            "address_zip": str(self.address_zip),
+            "address_country": self.address_country,
+            "reference": self.reference
+        }
 
     def __repr__(self):
         return """
