@@ -150,8 +150,31 @@ class Merchant:
             logger.error("exeption happend {}".format(e))
             return None
 
-    def charge_customer_tokenized(self, customer_id):
+    def charge_customer_tokenized(self, customer_id, data):
+        """
+        Charge a customer for merchant. 
+        ***requires a data dictionary with mandatory keys
+        meta, total and pre_auth
+        the example structure for meta is 
+        "meta": {
+            "tax":2,
+            "subtotal":10
+            "lineItems": [
+                {
+                    "id": "optional-fm-catalog-item-id"
+                    "item":"Demo Item",
+                    "details":"this is a regular demo item",
+                    "quantity":10,
+                    "price": .1
+                }
+            ]
+        },
+        "total" is the amount you need to charge the customer
+        "pre_auth": 
+}
+        """
         charge_to_customer = None
+        endpoint = "charge"
         for customer in self.customers:
             if customer_id == customer.id:
                 charge_to_customer = customer
@@ -159,7 +182,15 @@ class Merchant:
             logger.error("unable to find customer for the merchant")
             return False
         else:
-            charge_to_customer
+            payment_method_id = charge_to_customer.payment_methods[0]
+            body = {
+
+                "payment_method_id": payment_method_id,
+                "meta": data["meta"],
+                "total": data["total"],
+                "pre_auth": data["pre_auth"]
+            }
+            self.request.post_request(endpoint, body=body)
 
     def add_customer(self, customer: Customer):
         """
