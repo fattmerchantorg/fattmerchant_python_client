@@ -161,7 +161,11 @@ class Customer:
         self.company = customer_info.get("company", None)
         self.email = customer_info.get("email", None)
         try:
-            self.cc_emails = exec(customer_info.get("cc_emails", "[]"))
+            cc_email = customer_info.get("cc_emails", "[]")
+            if cc_email in [None, []]:
+                self.cc_emails = []
+            else:
+                self.cc_emails = exec(cc_email)
         except:
             logger.error("wrong cc emails got {}".format(customer_info["cc_emails"]))
             self.cc_emails = list()

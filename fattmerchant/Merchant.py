@@ -171,10 +171,12 @@ class Merchant:
         },
         "total" is the amount you need to charge the customer
         "pre_auth": 
-}
+        }
         """
         charge_to_customer = None
         endpoint = "charge"
+        self.get_all_customers()
+        logger.info(self.customers)
         for customer in self.customers:
             if customer_id == customer.id:
                 charge_to_customer = customer
@@ -183,6 +185,7 @@ class Merchant:
             return False
         else:
             payment_method_id = charge_to_customer.payment_methods[0]
+            logger.info("id returned by call =====> {}".format(payment_method_id))
             body = {
 
                 "payment_method_id": payment_method_id,
