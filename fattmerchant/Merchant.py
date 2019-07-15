@@ -176,7 +176,7 @@ class Merchant:
         charge_to_customer = None
         endpoint = "charge"
         self.get_all_customers()
-        logger.info(self.customers)
+        logger.debug(self.customers)
         for customer in self.customers:
             if customer_id == customer.id:
                 charge_to_customer = customer
@@ -184,16 +184,17 @@ class Merchant:
             logger.error("unable to find customer for the merchant")
             return False
         else:
-            payment_method_id = charge_to_customer.payment_methods[0]
+            payment_method_id = charge_to_customer.payment_methods[0]['id']
             logger.info("id returned by call =====> {}".format(payment_method_id))
             body = {
-
                 "payment_method_id": payment_method_id,
                 "meta": data["meta"],
                 "total": data["total"],
                 "pre_auth": data["pre_auth"]
             }
-            self.request.post_request(endpoint, body=body)
+            answer = self.request.post_request(endpoint, body=body)
+            logger.debug(json.loads(answer))
+            return json.loads(answer)
 
     def add_customer(self, customer: Customer):
         """

@@ -85,12 +85,17 @@ class FMRequest():
         self.body = body
         self.api_key = self.api_key_default if self.api_key is None else self.api_key
         self.update_header()
-        logger.info("body ==> {}".format(self.body))
+        logger.info("body ==> {}".format(json.dumps(self.body)))
         if self.body is not None:
             req = requests.post(url, headers=self.header, data=json.dumps(self.body))
         else:
             req = requests.post(url, headers=self.header)
-        return req.text
+        if req.status_code == 200:
+            return req.text
+        else:
+            logger.error("Error while post ==> {}, body ==> {}".format(url, body))
+            logger.error("response got ===> {}".format(req.text))
+            return None
 
     def set_api_key(self, key):
         """

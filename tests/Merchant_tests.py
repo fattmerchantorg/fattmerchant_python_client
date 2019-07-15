@@ -56,22 +56,22 @@ class MerchantTests(unittest.TestCase):
         print(self.merchant.items())
     def test_tokenized_payment(self):
         logger.info("rnning")
-        john_doe_token = "bc91a092-5657-48fb-ad66-9b2cf74ffa39"
+        john_doe_token = "e1d3d2cc-5a3b-474f-a0f4-2dd16632b53f"
         john_doe_customer_id = "ef7304b3-7df7-4640-aabb-0191583290e2"
         payment_meta = dict()
-        payment_meta["meta"] = """{
+        payment_meta["meta"] = {
             "tax":2,
-            "subtotal":10
+            "subtotal":10,
             "lineItems": [
                 {
-                    "id": "optional-fm-catalog-item-id"
+                    "id": "optional-fm-catalog-item-id",
                     "item":"Demo Item",
                     "details":"this is a regular demo item",
                     "quantity":10,
                     "price": .1
                 }
             ]
-        }"""
+        }
         payment_meta["total"] = 10 
         payment_meta["pre_auth"] = ""
         answer = self.merchant.charge_customer_tokenized(john_doe_customer_id, payment_meta)
