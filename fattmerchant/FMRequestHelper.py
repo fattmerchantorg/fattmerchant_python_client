@@ -93,6 +93,7 @@ class FMRequest():
         if req.status_code == 200:
             return req.text
         else:
+            logger.error("request error ===> status code: {}".format(req.status_code))
             logger.error("Error while post ==> {}, body ==> {}".format(url, body))
             logger.error("response got ===> {}".format(req.text))
             return None

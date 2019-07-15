@@ -150,6 +150,27 @@ class Merchant:
             logger.error("exeption happend {}".format(e))
             return None
 
+    def charge_customer_on_token(self, customer_id, token_id, data):
+        """
+        Works exactly like charge  customer tokenized function but 
+        do not check for the existence of customer and needs a token id
+        
+        """
+        endpoint = "charge"
+        # todo: check if the customer exiss
+    
+        payment_method_id = token_id
+        logger.info("id returned by call =====> {}".format(payment_method_id))
+        body = {
+            "payment_method_id": payment_method_id,
+            "meta": data["meta"],
+            "total": data["total"],
+            "pre_auth": data["pre_auth"]
+        }
+        answer = self.request.post_request(endpoint, body=body)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
+
     def charge_customer_tokenized(self, customer_id, data):
         """
         Charge a customer for merchant. 
