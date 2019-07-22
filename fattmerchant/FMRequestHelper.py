@@ -26,8 +26,11 @@ class FMRequest():
     fm_demo_link = r'https://apidemo.fattlabs.com/'
     fm_mock_link = r'https://private-anon-c4e1c18d13-fattmerchant.apiary-mock.com/'
     fm_link = fm_link_prod
-    with open(os.path.join(self_path,"test_api_key.txt"), 'r') as api_file:
-        api_key_default = api_file.read()
+    try:
+        with open(os.path.join(self_path,"test_api_key.txt"), 'r') as api_file:
+            api_key_default = api_file.read()
+    except:
+        logger.debug("test api key not found")
     def __init__(self):
         self.header = {'Content-Type': 'application/json',
                        'Authorization': 'Bearer {api_key}',
