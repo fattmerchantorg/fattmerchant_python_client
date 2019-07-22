@@ -1,5 +1,11 @@
+# -*- coding: utf-8 -*-
 """
+
 This module cotains helper functions/class for creating fattmerchant requests
+    :copyright: 2019 Fattmerchant
+    :license: MIT
+    :author: Tanmay Dutta
+
 """
 
 import requests
@@ -11,7 +17,11 @@ self_path = os.path.dirname(__file__)
 logger = logging.getLogger(__name__)
 
 class FMRequest():
-    "Class to get a valid fattmerchant request format"
+    """
+
+    Class to get a valid fattmerchant request format
+
+    """
     fm_link_prod = r'https://apiprod.fattlabs.com'
     fm_demo_link = r'https://apidemo.fattlabs.com/'
     fm_mock_link = r'https://private-anon-c4e1c18d13-fattmerchant.apiary-mock.com/'
@@ -25,9 +35,12 @@ class FMRequest():
         self.body = None
         self.api_key = FMRequest.api_key_default
 
-    def use_env(self, env):
+    def use_env(self, env:str):
         """
         change enviornment for testing
+
+        :param env: string of enviornment can be "demo", "mock" or "prod"
+
         """
 
         if(env == "demo"):
@@ -39,11 +52,15 @@ class FMRequest():
             self.fm_link = self.fm_link_prod
             
             
-    def get_request(self, endpoint: str, body=None):
+    def get_request(self, endpoint: str, body:dict=None):
         """
+
         To call all the "get" request with a given endpoint
         for information on what endpoints are valid/available go to 
         https://fattmerchant.com/api-documentation/
+
+        :param str endpoint: string for fattmerchant API endpoint
+
         """
         url = self.fm_link + "/" + endpoint
         logger.debug("trying =====> {}".format(url))
@@ -61,9 +78,14 @@ class FMRequest():
     
     def put_request(self, endpoint: str, body=None):
         """
+
         To call all the "put" request with a given endpoint
         for information on what endpoints are valid/available go to 
         https://fattmerchant.com/api-documentation/
+
+
+        :param str endpoint: string for fattmerchant API endpoint
+
         """
         url = self.fm_link + "/" + endpoint
         self.body = body
@@ -77,9 +99,13 @@ class FMRequest():
 
     def post_request(self, endpoint: str, body=None):
         """
+
         To call all the "post" request with a given endpoint
         for information on what endpoints are valid/available go to 
         https://fattmerchant.com/api-documentation/
+
+        :param str endpoint: string for fattmerchant API endpoint
+
         """
         url = self.fm_link + "/" + endpoint
         self.body = body
@@ -98,15 +124,19 @@ class FMRequest():
             logger.error("response got ===> {}".format(req.text))
             return None
 
-    def set_api_key(self, key):
+    def set_api_key(self, key:str):
         """
+
         To set the API key that is provided by the fattmerchant support
+
         """
         self.api_key = key
     
     def update_header(self):
         """
+
         Internal helper function
+
         """
         self.header['Authorization'] = self.header['Authorization'].format(api_key = self.api_key)
 

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-
-For defining fattmerchant merhcant class
+For defining helper classes for fattmerchant merchant behaviour
 """
 
 from .Customer import CustomerApi, Customer
@@ -18,7 +17,7 @@ class MerchantItems:
     Helper Class for creating merchant items
     """
 
-    def __init__(self, itemJson):
+    def __init__(self, itemJson: dict)->None:
         self.id = itemJson["id"]
         self.user_id = itemJson["user_id"]
         self.merchant_id = itemJson["merchant_id"]
@@ -30,7 +29,7 @@ class Merchant:
 
     """
 
-    def __init__(self, api_key):
+    def __init__(self, api_key:str) -> None:
         self.api_key = api_key
         self.request = FMRequest()
         self.request.set_api_key(self.api_key)
@@ -48,7 +47,7 @@ class Merchant:
         self.request.use_env("demo")
         self.customer_api.request.use_env("demo")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         if self.enable_full_description:
             return """
                 "merchant_id": {mid},
@@ -74,7 +73,7 @@ class Merchant:
                 mid=self.id,
             )
 
-    def update_merchant_info(self):
+    def update_merchant_info(self)->None:
         """
         Call fattmerchant api and gets all the merchant info
         """
@@ -98,7 +97,7 @@ class Merchant:
             logger.error(
                 "unable to set/find merchant info.. is api key correct ?")
 
-    def create(self, name=None):
+    def create(self, name:str=None)->str:
         """
         Can be used to create merchant if the api key is good
         """
@@ -131,11 +130,14 @@ class Merchant:
             self.merchant_items.append(MerchantItems(item))
         return self.merchant_items
 
-    def get_all_customers(self):
+    def get_all_customers(self)->list:
         """
+
         Get all the customers for the merchant
-    :return: list of all customers
-    :rtype: list()
+
+        :return: list of all customers
+        :rtype: list()
+
         """
         endpoint = "customer"
         answer = json.loads(self.request.get_request(endpoint))
@@ -152,9 +154,13 @@ class Merchant:
 
     def charge_customer_on_token(self, customer_id, token_id, data):
         """
+
         Works exactly like charge  customer tokenized function but 
         do not check for the existence of customer and needs a token id
-        
+
+        :return: answer from the fattmerchant API
+        :rtype: dict()
+
         """
         endpoint = "charge"
         # todo: check if the customer exiss
@@ -173,26 +179,36 @@ class Merchant:
 
     def charge_customer_tokenized(self, customer_id, data):
         """
+
         Charge a customer for merchant. 
-        ***requires a data dictionary with mandatory keys
-        meta, total and pre_auth
+        ***requires a data dictionary with following mandatory keys***
+        - meta
+        - total and
+        - pre_auth
+
         the example structure for meta is 
-        "meta": {
-            "tax":2,
-            "subtotal":10
-            "lineItems": [
-                {
+
+        .. code-block:: python
+
+            "meta": {
+                "tax":2,
+                "subtotal":10
+                "lineItems": [{
                     "id": "optional-fm-catalog-item-id"
                     "item":"Demo Item",
                     "details":"this is a regular demo item",
                     "quantity":10,
                     "price": .1
-                }
-            ]
-        },
-        "total" is the amount you need to charge the customer
-        "pre_auth": 
-        }
+                    }]
+                },
+
+        .. note::
+
+            "total" is the amount you need to charge the customer
+
+        :return: answer from the fattmerchant API
+        :rtype: dict()
+
         """
         charge_to_customer = None
         endpoint = "charge"
@@ -219,7 +235,12 @@ class Merchant:
 
     def add_customer(self, customer: Customer):
         """
+
         Add a new customer for a merchant object
+
+        :return: answer from the fattmerchant API
+        :rtype: dict()
+
         """
         endpoint = "customer"
         body = customer.to_json()
@@ -230,22 +251,30 @@ class Merchant:
     def get_all_invoices(self):
         """
         Gets all the invoices to customer by a merchant
+
+        :return: all invoices from the fattmerchant API
+        :rtype: dict()
+
         """
         endpoint = "invoice"
-        answer = self.request.get_request(endpoint)
+        answer = json.loads(self.request.get_request(endpoint))
         return answer
 
     def get_items_by_code(self):
         """
+
         Gets a particular item specified by the code
+
         """
         endpoint = "item/code"
-        return self.request.get_request(endpoint)
+        return json.loads(self.request.get_request(endpoint))
 
     def set_merchant_id(self, id):
         """
-        ***Anti pattern here but just it is here to make sure
-        we can test the library.***
+
+        .. warning::
+            Anti pattern here but just it is here to make sure
+            we can test the library.
 
         Sets the merchant id, Required in case we are getting
         merchant info from some other source and want to use

@@ -3,7 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to fattmerchant's documentation!
+Fattmerchant official API
+
+Fattmerchant python API documentation!
 ========================================
 
 .. toctree::
@@ -30,5 +32,5 @@ Fattmerchant Merchant
 
 Fattmerchant Helper functions
 =============================
-.. automodule:: fattmerchant.utils
+.. automodule:: fattmerchant.FMRequestHelper
     :members:
