@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 class CustomerApi():
     """
+    
     Helper class for getting customer related information.
     """
 
@@ -43,27 +44,34 @@ class CustomerApi():
     def create(self, params):
         """
         Create a Customer
-        No field is required::
-        result = fattmerchant.Customer.create({
-        "company": "Some company",
-        "first_name": "John"
-        })
-        An example of creating an customer with all available fields::
-        {
-        "firstname": "John",
-        "lastname": "Smith",
-        "company": "ABC INC",
-        "email": "demo@fattmerchant.com",
-        "cc_emails": ["daniel@fattmerchant.com"],
-        "phone": "1234567898",
-        "address_1": "123 Rite Way",
-        "address_2": "Unit 12",
-        "address_city": "Orlando",
-        "address_state": "FL",
-        "address_zip": "32801",
-        "address_country": "USA",
-        "reference": "BARTLE"
-        }
+        No field is required
+
+        .. code-block:: python
+
+            example: = fattmerchant.Customer.create({
+                "company": "Some company",
+                "first_name": "John"
+            })
+        
+        An example of creating an customer with all available fields
+
+        .. code-block:: JSON
+        
+            {
+                "firstname": "John",
+                "lastname": "Smith",
+                "company": "ABC INC",
+                "email": "demo@fattmerchant.com",
+                "cc_emails": ["daniel@fattmerchant.com"],
+                "phone": "1234567898",
+                "address_1": "123 Rite Way",
+                "address_2": "Unit 12",
+                "address_city": "Orlando",
+                "address_state": "FL",
+                "address_zip": "32801",
+                "address_country": "USA",
+                "reference": "BARTLE"
+            }
 
         """
         endpoint = 'customer'
@@ -88,26 +96,47 @@ class CustomerApi():
 
     def delete(self, customer_id):
         """
+
         Delete a customer
+        
+        .. warning::
+
+            Not implemented yet
+
         Given a customer_id::
-        result = fattmerchant.Customer.delete("my_customer_id")
+        :return: = fattmerchant.Customer.delete("my_customer_id")
 
         """
         pass
 
-    def find(self, customer_id, association_filter_id=None):
+    def find(self, customer_id: str, association_filter_id=None):
         """
-        Find an customer, given a customer_id.  This does not return a result
-        object.  This will raise a :class:`NotFoundError <fattmerchant.exceptions.not_found_error.NotFoundError>` if the provided customer_id
-        is not found. ::
-        customer = fattmerchant.Customer.find("my_customer_id")
+
+        Find an customer, given a customer_id.
+
+        :params customer_id: The customer id
+
+        This does not return a result object. 
+
+        .. note ::
+
+            This will raise a :class:`NotFoundError <fattmerchant.exceptions.not_found_error.NotFoundError>` if the provided customer_id
+            is not found.
+
+        example
+
+        .. code-block:: python
+
+             customer = fattmerchant.Customer.find("my_customer_id")
+
         """
         endpoint = "customer/{}".format(customer_id)
         return self.request.get_request(endpoint)
         
     def payment_methods(self, customer_id):
         """
-        get payment methods for the customer
+
+        Get payment methods for the customer
         """
         endpoint = "customer/{}/payment-method".format(customer_id)
         payment_methods_customer = json.loads(self.request.get_request(endpoint))
@@ -119,9 +148,10 @@ class CustomerApi():
 
     def update(self, customer_id, params={}):
         """
+
         Update an existing Customer
         By customer_id. The params are similar to create::
-        result = fattmerchant.Customer.update("my_customer_id", {
+        :example: result = fattmerchant.Customer.update("my_customer_id", {
         "last_name": "Smith"
         })
 
@@ -194,6 +224,7 @@ class Customer:
 
     def to_json(self):
         """
+
         Returns json representation that can be uploaded/post to fattmerchant api
         """
         return {
