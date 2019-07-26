@@ -310,7 +310,10 @@ class Merchant:
             }
 
         """
-        return 1
+        endpoint = "team"
+        answer = self.request.post_request(endpoint, body=team_info)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
 
     def team_edit_info(self, team_info:dict):
         """some summary
@@ -342,7 +345,10 @@ class Merchant:
             Authentication Token and Team Admin Status Required
 
         """
-        pass
+        endpoint = "team"
+        answer = self.request.put_request(endpoint, body=team_info)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
 
     def team_edit_branding_info(self, branding_info:dict):
         """somethign
@@ -368,7 +374,10 @@ class Merchant:
             }
 
         """
-        pass
+        endpoint = "team/option/branding"
+        answer = self.request.put_request(endpoint, body=branding_info)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
     
     def team_list_members(self):
         """
@@ -378,7 +387,10 @@ class Merchant:
         Retrieves all the users on a merchants's team, showing team-oriented details and team_role.
         Used for finding all members of a team and listing them by roles.
         """
-        pass
+        endpoint = "team/user"
+        answer = self.request.get_request(endpoint)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
     
     def team_create_member(self,user_info):
         """
@@ -412,8 +424,10 @@ class Merchant:
             "url": "https://omni.fattmerchant.com/#/verify/"
             }
         """
-
-        pass
+        endpoint = "team/user"
+        answer = self.request.put_request(endpoint, body=user_info)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
     
     def team_create_api_key_user(self, name:str, role:str): 
         """creates api key 
@@ -435,7 +449,14 @@ class Merchant:
             team_create_api_key("do not delete - zapier key", "admin")
 
         """
-        pass
+        endpoint = "team/apikey"
+        api_key_info = {
+            "team_role": role, 
+            "name": name
+        }
+        answer = self.request.put_request(endpoint, body=api_key_info)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
     
     def team_list_api_keys(self):
         """lists all api keys
@@ -446,7 +467,10 @@ class Merchant:
         List out all team member user records which are api keys.
 
         """
-        pass
+        endpoint = "team/apikey"
+        answer = self.request.get_request(endpoint)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
     
     def team_get_user_by_id(self, id:str):
         """user info by id
@@ -463,7 +487,10 @@ class Merchant:
             id {str} -- user_id
 
         """
-        pass
+        endpoint = "team/user/{}".format(id)
+        answer = self.request.get_request(endpoint)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
     
     def team_update_user_by_id(self, id:str, user_info:dict):
         """updates user info
@@ -501,7 +528,11 @@ class Merchant:
                 }
 
         """
-        pass
+
+        endpoint = "team/user/{}".format(id)
+        answer = self.request.put_request(endpoint, body=user_info)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
     
     def team_update_settings(self, settings:dict):
         """updates team settings
@@ -566,7 +597,10 @@ class Merchant:
             ]
 
         """
-        pass
+        endpoint = "team/option"
+        answer = self.request.put_request(endpoint, body=settings)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
     
     def team_update_registration_data(self, registration_data:dict):
         pass
@@ -591,7 +625,13 @@ class Merchant:
         Arguments:
             plan {str} -- plan description --> {"portal"/"premium"}
         """
-        pass
+        endpoint = "team/option/plan"
+        body = {
+            "plan": plan.upper()
+        }
+        answer = self.request.put_request(endpoint, body=body)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
     
     def team_change_gateway(self, gateway:str):
         """Changes teams gateway
@@ -610,7 +650,13 @@ class Merchant:
         Arguments:
             gateway {str} -- gateway string
         """
-        pass
+        endpoint = "team/option/gateway"
+        body = {
+            "value": gateway.upper()
+        }
+        answer = self.request.put_request(endpoint, body=body)
+        logger.debug(json.loads(answer))
+        return json.loads(answer)
 
 
     
