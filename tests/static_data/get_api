@@ -1,0 +1,30 @@
+{
+    "current_page": 1,
+    "data": [
+        {
+            "id": "376b05dd-9d67-4f33-85f9-993fcda7d1fc",
+            "name": "tan may python local dev key",
+            "email": null,
+            "email_verification_sent_at": null,
+            "email_verified_at": null,
+            "created_at": "2019-05-23 12:56:28",
+            "updated_at": "2019-05-23 12:56:28",
+            "deleted_at": null,
+            "gravatar": "\/\/www.gravatar.com\/avatar\/d41d8cd98f00b204e9800998ecf8427e",
+            "team_role": "admin",
+            "team_admin": true,
+            "team_enabled": true,
+            "api_key": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXJjaGFudCI6ImYzMjJlZWM4LTVhYzYtNGZhZS04YzI3LTAwZjUyZTFiN2JkMyIsImdvZFVzZXIiOmZhbHNlLCJzdWIiOiIzNzZiMDVkZC05ZDY3LTRmMzMtODVmOS05OTNmY2RhN2QxZmMiLCJpc3MiOiJodHRwOi8vYXBpZGVtby5mYXR0bGFicy5jb20vdGVhbS9hcGlrZXkiLCJpYXQiOjE1NTg2MTYxODgsImV4cCI6NDcxMjIxNjE4OCwibmJmIjoxNTU4NjE2MTg4LCJqdGkiOiJQYWZYeDNTcEpDaEJ1Ym42IiwiYXNzdW1pbmciOmZhbHNlfQ.mZE4X0cJLjBpyfo4Wts16Wk4bOn3_MadLfYTNwX57jg"
+        }
+    ],
+    "first_page_url": "http:\/\/apidemo.fattlabs.com\/team\/apikey?page=1",
+    "from": 1,
+    "last_page": 1,
+    "last_page_url": "http:\/\/apidemo.fattlabs.com\/team\/apikey?page=1",
+    "next_page_url": null,
+    "path": "http:\/\/apidemo.fattlabs.com\/team\/apikey",
+    "per_page": 20,
+    "prev_page_url": null,
+    "to": 1,
+    "total": 1
+}
