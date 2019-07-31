@@ -1,13 +1,18 @@
 import unittest
 from unittest import mock
 from os.path import dirname, join, abspath
+from os import path
+import json
 from ddt import ddt, unpack, data
 from fattmerchant.Merchant import Merchant
 from fattmerchant.Customer import Customer
+from fattmerchant.utils import compare_json_data
 import logging
 
 
 logger = logging.getLogger(__name__)
+test_path = dirname(abspath(__file__))
+static_data = join(test_path, "static_data")
 
 
 def mocked_requests_put(*args, **kwargs):
@@ -34,7 +39,6 @@ def mocked_requests_get(*args, **kwargs):
 
     import pdb
     pdb.set_trace()
-    test_path = dirname(abspath(__file__))
     if args[0] == 'https://apidemo.fattlabs.com//self':
         with open(join(test_path, "mock_self.txt"), 'r') as mock_self:
             return MockResponse(mock_self.read(),
@@ -49,10 +53,11 @@ def mocked_requests_get(*args, **kwargs):
 
 @ddt
 class MerchantTests(unittest.TestCase):
-    @mock.patch('requests.get', side_effect=mocked_requests_get)
-    @mock.patch('requests.post', side_effect=mocked_requests_put)
-    @mock.patch('requests.put', side_effect=mocked_requests_put)
-    def setUp(self, mock_get, mock_post, mock_put):
+    # @mock.patch('requests.get', side_effect=mocked_requests_get)
+    # @mock.patch('requests.post', side_effect=mocked_requests_put)
+    # @mock.patch('requests.put', side_effect=mocked_requests_put)
+    # def setUp(self, mock_get, mock_post, mock_put):
+    def setUp(self): #, mock_get, mock_post, mock_put):
         filepath = join(dirname(__file__), "..",
                         "fattmerchant", "test_api_key.txt")
         with open(filepath) as api_file:
@@ -70,7 +75,7 @@ class MerchantTests(unittest.TestCase):
         merchant.update_merchant_info()
         self.assertEqual(merchant.request.api_key, self.api_key)
 
-    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    # @mock.patch('requests.get', side_effect=mocked_requests_get)
     def test_query_all_customers_of_merchant(self, mock_get):
         all_customers = self.merchant.get_all_customers()
         logger.info(all_customers)
@@ -99,6 +104,14 @@ class MerchantTests(unittest.TestCase):
 
     def test_getting_request(self):
         print(self.merchant.items())
+    
+    def test_merchant_team_list_api(self):
+        answer = self.merchant.team_list_api_keys()
+        with open(join(static_data, "get_api")) as file:
+            expected_answer = json.load(file)
+        print("expected is \n {}".format(expected_answer))
+        self.assertDictEqual(answer, expected_answer)
+
 
     def test_tokenized_payment(self):
         logger.info("running")
