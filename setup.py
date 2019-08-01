@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="fattmerchant",
-    version="0.0.0.5",
+    version="0.0.0.6",
     author="Tanmay Dutta",
     author_email="tanmay.datta86@gmail.com",
     description="python client for fattmerchant payment processing",
@@ -17,8 +17,9 @@ setuptools.setup(
         "":["*.config", "*.txt"],
         },
     install_requires =["ddt", "requests"],
+    python_requires = '>=2.7',
     classifiers=[
-        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 2",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],

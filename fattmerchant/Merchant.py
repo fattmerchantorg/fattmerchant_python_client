@@ -317,7 +317,7 @@ class Merchant(object):
         return json.loads(answer)
 
     def team_edit_info(self, team_info):
-        u"""some summary
+        u"""
         This function allows a user to edit the information,
         such as address and name, of a merchant team.
         This only works for team members with admin as their team_role.
