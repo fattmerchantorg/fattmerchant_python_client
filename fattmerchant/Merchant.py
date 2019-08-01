@@ -469,8 +469,13 @@ class Merchant:
         """
         endpoint = "team/apikey"
         answer = self.request.get_request(endpoint)
-        logger.debug(json.loads(answer))
-        return json.loads(answer)
+        try:
+            json_answer = json.loads(answer)
+            logger.debug(json_answer)
+            return json_answer
+        except Exception as e:
+            logger.critical("error ==> {}".format(e))
+            return None
     
     def team_get_user_by_id(self, id:str):
         """user info by id
