@@ -196,7 +196,7 @@ class Customer(object):
             if cc_email in [None, []]:
                 self.cc_emails = []
             else:
-                self.cc_emails = exec(cc_email)
+                self.cc_emails = eval(cc_email)
         except:
             logger.error(u"wrong cc emails got {}".format(customer_info[u"cc_emails"]))
             self.cc_emails = list()
