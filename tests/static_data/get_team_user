@@ -1,0 +1,81 @@
+{
+    "current_page": 1,
+    "data": [
+        {
+            "id": "562499db-1e10-4bd3-a7e5-7cade82bc4d1",
+            "system_admin": false,
+            "name": "Adam Merille",
+            "email": "amerille@saasoptics.com",
+            "email_verification_sent_at": "2019-06-13 17:15:27",
+            "email_verified_at": "2019-06-13 17:18:24",
+            "created_at": "2019-06-13 17:14:10",
+            "updated_at": "2019-06-13 17:20:20",
+            "is_default": false,
+            "is_api_key": false,
+            "deleted_at": null,
+            "gravatar": "\/\/www.gravatar.com\/avatar\/0f63646df380af13b37abfa131da5255",
+            "team_role": "admin",
+            "team_admin": true,
+            "team_enabled": true,
+            "merchant_options": {
+                "subscribed_to_weekly_summary": true
+            },
+            "acknowledgments": null,
+            "brand": "fattmerchant"
+        },
+        {
+            "id": "2da9aef9-4255-4267-8e65-c017262979e3",
+            "system_admin": false,
+            "name": "Curtis Ide",
+            "email": "cide@saasoptics.com",
+            "email_verification_sent_at": "2019-06-13 17:15:16",
+            "email_verified_at": "2019-06-13 17:19:29",
+            "created_at": "2019-06-13 17:14:35",
+            "updated_at": "2019-06-13 17:21:59",
+            "is_default": false,
+            "is_api_key": false,
+            "deleted_at": null,
+            "gravatar": "\/\/www.gravatar.com\/avatar\/855a7510fb0ed5c25599d997e408b60d",
+            "team_role": "admin",
+            "team_admin": true,
+            "team_enabled": true,
+            "merchant_options": {
+                "subscribed_to_weekly_summary": true
+            },
+            "acknowledgments": null,
+            "brand": "fattmerchant"
+        },
+        {
+            "id": "f149d653-4c63-4df3-822a-dd42bf637bda",
+            "system_admin": false,
+            "name": "daniel",
+            "email": "daniel+5ce6970f71555@fattmerchant.com",
+            "email_verification_sent_at": "2019-05-23 12:50:23",
+            "email_verified_at": "2019-05-23 12:50:23",
+            "created_at": "2019-05-23 12:50:23",
+            "updated_at": "2019-05-23 12:50:23",
+            "is_default": true,
+            "is_api_key": false,
+            "deleted_at": null,
+            "gravatar": "\/\/www.gravatar.com\/avatar\/2ed76f78cfa34a60bf21eb7b2435bab7",
+            "team_role": "admin",
+            "team_admin": true,
+            "team_enabled": true,
+            "merchant_options": [],
+            "acknowledgments": {
+                "tutorial": true
+            },
+            "brand": null
+        }
+    ],
+    "first_page_url": "http:\/\/apidemo.fattlabs.com\/team\/user?page=1",
+    "from": 1,
+    "last_page": 1,
+    "last_page_url": "http:\/\/apidemo.fattlabs.com\/team\/user?page=1",
+    "next_page_url": null,
+    "path": "http:\/\/apidemo.fattlabs.com\/team\/user",
+    "per_page": 20,
+    "prev_page_url": null,
+    "to": 3,
+    "total": 3
+}
