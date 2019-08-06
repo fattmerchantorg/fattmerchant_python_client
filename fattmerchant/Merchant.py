@@ -17,7 +17,6 @@ class MerchantItems(object):
     u"""
     Helper Class for creating merchant items
     """
-
     def __init__(self, itemJson):
         self.id = itemJson[u"id"]
         self.user_id = itemJson[u"user_id"]
@@ -29,20 +28,20 @@ class Merchant(object):
     Class to maintain merchant object easily
 
     """
-
     def __init__(self, api_key):
         self.api_key = api_key
         self.request = FMRequest()
         self.request.set_api_key(self.api_key)
+        self.request.update_header()
         self.customer_api = CustomerApi(api_key, self.request)
         self.customers = list()
         self.enable_full_description = False
-        self.id=None
+        self.id = None
         self.company = None
-        self.email=None
-        self.allow_ach=None
-        self.created_at=None
-        self.updated_at=None
+        self.email = None
+        self.allow_ach = None
+        self.created_at = None
+        self.updated_at = None
 
     def use_demo(self):
         self.request.use_env(u"demo")
@@ -57,20 +56,19 @@ class Merchant(object):
                 "name": {name} ,
                 "ach allowed?": {allow_ach} ,
                 "created at": {created_at} ,
-                """.format(
-                mid=self.id,
-                company=self.company,
-                email=self.email,
-                name=self.name,
-                allow_ach=self.allow_ach,
-                created_at=self.created_at
-            )
+                """.format(mid=self.id,
+                           company=self.company,
+                           email=self.email,
+                           name=self.name,
+                           allow_ach=self.allow_ach,
+                           created_at=self.created_at)
         else:
             return u"""
                 "merchant_id": {mid},
                 "company": {company} ,
                 """.format(
-                company=self.company if self.company is not None else u"Not set",
+                company=self.company
+                if self.company is not None else u"Not set",
                 mid=self.id,
             )
 
@@ -147,7 +145,8 @@ class Merchant(object):
         try:
             for customer in answer[u"data"]:
                 next_customer = Customer(customer, self.id)
-                next_customer.payment_methods = self.customer_api.payment_methods(next_customer.id)
+                next_customer.payment_methods = self.customer_api.payment_methods(
+                    next_customer.id)
                 self.customers.append(next_customer)
             return self.customers
         except Exception, e:
@@ -166,7 +165,7 @@ class Merchant(object):
         """
         endpoint = u"charge"
         # todo: check if the customer exiss
-    
+
         payment_method_id = token_id
         logger.info(u"id returned by call =====> {}".format(payment_method_id))
         body = {
@@ -224,7 +223,8 @@ class Merchant(object):
             return False
         else:
             payment_method_id = charge_to_customer.payment_methods[0][u'id']
-            logger.info(u"id returned by call =====> {}".format(payment_method_id))
+            logger.info(
+                u"id returned by call =====> {}".format(payment_method_id))
             body = {
                 u"payment_method_id": payment_method_id,
                 u"meta": data[u"meta"],
@@ -379,7 +379,7 @@ class Merchant(object):
         answer = self.request.put_request(endpoint, body=branding_info)
         logger.debug(json.loads(answer))
         return json.loads(answer)
-    
+
     def team_list_members(self):
         u"""
         .. note::
@@ -392,8 +392,8 @@ class Merchant(object):
         answer = self.request.get_request(endpoint)
         logger.debug(json.loads(answer))
         return json.loads(answer)
-    
-    def team_create_member(self,user_info):
+
+    def team_create_member(self, user_info):
         u"""
         .. note::
             Authentication Token and Team Admin Status Required
@@ -429,8 +429,8 @@ class Merchant(object):
         answer = self.request.put_request(endpoint, body=user_info)
         logger.debug(json.loads(answer))
         return json.loads(answer)
-    
-    def team_create_api_key_user(self, name, role): 
+
+    def team_create_api_key_user(self, name, role):
         u"""creates api key 
 
         .. note::
@@ -451,14 +451,11 @@ class Merchant(object):
 
         """
         endpoint = u"team/apikey"
-        api_key_info = {
-            u"team_role": role, 
-            u"name": name
-        }
+        api_key_info = {u"team_role": role, u"name": name}
         answer = self.request.put_request(endpoint, body=api_key_info)
         logger.debug(json.loads(answer))
         return json.loads(answer)
-    
+
     def team_list_api_keys(self):
         u"""lists all api keys
 
@@ -477,7 +474,7 @@ class Merchant(object):
         except Exception, e:
             logger.critical(u"error ==> {}".format(e))
             return None
-    
+
     def team_get_user_by_id(self, id):
         u"""user info by id
         
@@ -497,7 +494,7 @@ class Merchant(object):
         answer = self.request.get_request(endpoint)
         logger.debug(json.loads(answer))
         return json.loads(answer)
-    
+
     def team_update_user_by_id(self, id, user_info):
         u"""updates user info
         
@@ -539,7 +536,7 @@ class Merchant(object):
         answer = self.request.put_request(endpoint, body=user_info)
         logger.debug(json.loads(answer))
         return json.loads(answer)
-    
+
     def team_update_settings(self, settings):
         u"""updates team settings
 
@@ -607,10 +604,10 @@ class Merchant(object):
         answer = self.request.put_request(endpoint, body=settings)
         logger.debug(json.loads(answer))
         return json.loads(answer)
-    
+
     def team_update_registration_data(self, registration_data):
         pass
-    
+
     def team_change_plan(self, plan):
         u"""changes team plan
 
@@ -632,13 +629,11 @@ class Merchant(object):
             plan {str} -- plan description --> {"portal"/"premium"}
         """
         endpoint = u"team/option/plan"
-        body = {
-            u"plan": plan.upper()
-        }
+        body = {u"plan": plan.upper()}
         answer = self.request.put_request(endpoint, body=body)
         logger.debug(json.loads(answer))
         return json.loads(answer)
-    
+
     def team_change_gateway(self, gateway):
         u"""Changes teams gateway
         
@@ -657,13 +652,7 @@ class Merchant(object):
             gateway {str} -- gateway string
         """
         endpoint = u"team/option/gateway"
-        body = {
-            u"value": gateway.upper()
-        }
+        body = {u"value": gateway.upper()}
         answer = self.request.put_request(endpoint, body=body)
         logger.debug(json.loads(answer))
         return json.loads(answer)
-
-
-    
-        
