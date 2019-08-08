@@ -19,6 +19,7 @@ from io import open
 self_path = os.path.dirname(__file__)
 logger = logging.getLogger(__name__)
 
+
 class FMRequest(object):
     u"""
 
@@ -29,17 +30,14 @@ class FMRequest(object):
     fm_demo_link = ur'https://apidemo.fattlabs.com/'
     fm_mock_link = ur'https://private-anon-c4e1c18d13-fattmerchant.apiary-mock.com/'
     fm_link = fm_link_prod
-    try:
-        with open(os.path.join(self_path,u"test_api_key.txt"), u'r') as api_file:
-            api_key_default = api_file.read()
-    except:
-        logger.debug(u"test api key not found")
+
     def __init__(self):
-        self.header = {u'Content-Type': u'application/json',
-                       u'Authorization': u'Bearer {api_key}',
-                       u'Accept': u'application/json'}
+        self.header = {
+            u'Content-Type': u'application/json',
+            u'Authorization': u'Bearer {api_key}',
+            u'Accept': u'application/json'
+        }
         self.body = None
-        self.api_key = FMRequest.api_key_default
 
     def use_env(self, env):
         u"""
@@ -49,15 +47,14 @@ class FMRequest(object):
 
         """
 
-        if(env == u"demo"):
+        if (env == u"demo"):
             logger.debug(u"using demo account")
             self.fm_link = self.fm_demo_link
         elif (env == u"mock"):
             self.fm_link = self.fm_mock_link
         else:
             self.fm_link = self.fm_link_prod
-            
-            
+
     def get_request(self, endpoint, body=None):
         u"""
 
@@ -81,7 +78,7 @@ class FMRequest(object):
         logger.debug(u"request got req = {}".format(req))
         logger.debug(u"request answer = {}".format(req.content))
         return req.text
-    
+
     def put_request(self, endpoint, body=None):
         u"""
 
@@ -119,16 +116,20 @@ class FMRequest(object):
         self.update_header()
         logger.info(u"body ==> {}".format(json.dumps(self.body)))
         if self.body is not None:
-            req = requests.post(url, headers=self.header, data=json.dumps(self.body))
+            req = requests.post(url,
+                                headers=self.header,
+                                data=json.dumps(self.body))
         else:
             req = requests.post(url, headers=self.header)
         if req.status_code == 200:
             return req.text
         else:
-            logger.error(u"request error ===> status code: {}".format(req.status_code))
-            logger.error(u"Error while post ==> {}, body ==> {}".format(url, body))
+            logger.error(u"request error ===> status code: {}".format(
+                req.status_code))
+            logger.error(u"Error while post ==> {}, body ==> {}".format(
+                url, body))
             logger.error(u"response got ===> {}".format(req.text))
-            return None
+            return req.text
 
     def set_api_key(self, key):
         u"""
@@ -137,13 +138,14 @@ class FMRequest(object):
 
         """
         self.api_key = key
-    
+
     def update_header(self):
         u"""
 
         Internal helper function
 
         """
-        self.header[u'Authorization'] = self.header[u'Authorization'].format(api_key = self.api_key)
-
-
+        self.header[u'Authorization'] = self.header[u'Authorization'].format(
+            api_key=self.api_key)
+        
+        
