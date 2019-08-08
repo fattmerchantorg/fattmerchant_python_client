@@ -4,10 +4,11 @@ For defining helper classes for fattmerchant merchant behaviour
 """
 
 from __future__ import absolute_import
-from .Customer import CustomerApi, Customer
-from .FMRequestHelper import FMRequest
+
 import json
 import logging
+
+from .Customer import Customer
 
 __author__ = u"tanmay.datta86@gmail.com"
 logger = logging.getLogger(__name__)
@@ -23,29 +24,14 @@ class MerchantItems(object):
         self.merchant_id = itemJson[u"merchant_id"]
 
 
-class Merchant(object):
+class Merchant():
     u"""
     Class to maintain merchant object easily
 
     """
-    def __init__(self, api_key):
+    def __init__(self, api_key, request, customer):
         self.api_key = api_key
-        self.request = FMRequest()
-        self.request.set_api_key(self.api_key)
-        self.request.update_header()
-        self.customer_api = CustomerApi(api_key, self.request)
-        self.customers = list()
-        self.enable_full_description = False
-        self.id = None
-        self.company = None
-        self.email = None
-        self.allow_ach = None
-        self.created_at = None
-        self.updated_at = None
-
-    def use_demo(self):
-        self.request.use_env(u"demo")
-        self.customer_api.request.use_env(u"demo")
+        self.request = request
 
     def __repr__(self):
         if self.enable_full_description:
@@ -66,21 +52,20 @@ class Merchant(object):
             return u"""
                 "merchant_id": {mid},
                 "company": {company} ,
-                """.format(
-                company=self.company
-                if self.company is not None else u"Not set",
-                mid=self.id,
-            )
+                """.format(company=self.company
+                           if self.company is not None else u"Not set",
+                           mid=self.id)
 
-    def update_merchant_info(self):
+    def update_merchant_info(self, name=None):
         u"""
         Call fattmerchant api and gets all the merchant info
         """
-        endpoint = u"self"
+        endpoint = "merchant/?company_name={}".format(name)
         response = json.loads(self.request.get_request(endpoint))
+
         try:
             logger.debug(response)
-            merchant_info = response[u'merchant']
+            merchant_info = response[u'data'][0]
             self.company = merchant_info[u'company_name']
             self.id = merchant_info[u'id']
             self.email = merchant_info[u'contact_email']
@@ -100,12 +85,10 @@ class Merchant(object):
         u"""
         Can be used to create merchant if the api key is good
         """
-        if self.name is None and name is None:
+        if name is None:
             return u"Merchant name should be provided, call as .create(<name>)"
-        else:
-            if name is not None:
-                self.name = name
-        endpoint = u"merchant/get_info"
+
+        endpoint = u"merchant"
         body = {
             u"name": self.name,
             u"company": self.company,
@@ -145,7 +128,7 @@ class Merchant(object):
         try:
             for customer in answer[u"data"]:
                 next_customer = Customer(customer, self.id)
-                next_customer.payment_methods = self.customer_api.payment_methods(
+                next_customer.payment_methods = self.customer.payment_methods(
                     next_customer.id)
                 self.customers.append(next_customer)
             return self.customers

@@ -6,36 +6,27 @@ For definiting fattmerchant customer class
 from __future__ import absolute_import
 __author__ = u"tanmay.datta86@gmail.com"
 
-from .inventory import CreditCard, Address, BankAccount
-from .FMRequestHelper import FMRequest
 import logging
 import json
 
 logger = logging.getLogger(__name__)
+
 
 class CustomerApi(object):
     u"""
     
     Helper class for getting customer related information.
     """
-
-    def __init__(self, api_key, merchant_id=None,
-                 request=None, company=None):
-        logging.debug(u"creating customer")
+    def __init__(self, api_key, request=None, company=None):
         self.api_key = api_key
-        self.request = request if request else FMRequest()
-        #self.request.set_api_key(self.api_key)
-        self.merchant_id = merchant_id
+        self.request = request
         self.company = company
 
     def __repr__(self):
         return u"""
             "for_company": {company} ,
             "merchant_id": {mid},
-            """.format(
-                company=self.company if self.company else u"None",
-                mid=self.merchant_id,
-            )
+            """.format(company=self.company if self.company else u"None", )
 
     @staticmethod
     def all_customers():
@@ -75,6 +66,9 @@ class CustomerApi(object):
             }
 
         """
+
+        logging.debug(u"creating customer")
+
         endpoint = u'customer'
         body = {
             u"firstname": params.get(u"first_name", u""),
@@ -89,11 +83,9 @@ class CustomerApi(object):
             u"address_state": params.get(u"address_state", u""),
             u"address_zip": params.get(u"address_zip", u""),
             u"address_country": params.get(u"address_country", u""),
-            u"reference": params.get(u"reference",u"")
+            u"reference": params.get(u"reference", u"")
         }
-        return self.request.post_request(endpoint=endpoint,
-        body=body)
-
+        return self.request.post_request(endpoint=endpoint, body=body)
 
     def delete(self, customer_id):
         u"""
@@ -133,14 +125,15 @@ class CustomerApi(object):
         """
         endpoint = u"customer/{}".format(customer_id)
         return self.request.get_request(endpoint)
-        
+
     def payment_methods(self, customer_id):
         u"""
 
         Get payment methods for the customer
         """
         endpoint = u"customer/{}/payment-method".format(customer_id)
-        payment_methods_customer = json.loads(self.request.get_request(endpoint))
+        payment_methods_customer = json.loads(
+            self.request.get_request(endpoint))
         logger.debug(payment_methods_customer)
         if payment_methods_customer is None:
             return list()
@@ -173,19 +166,18 @@ class CustomerApi(object):
             u"address_country": params.get(u"address_country", u""),
             u"reference": params.get(u"reference")
         }
-        return self.request.put_request(endpoint=endpoint,
-        body=body)
+        return self.request.put_request(endpoint=endpoint, body=body)
+
 
 class Customer(object):
     u"""
     The customer object given by the fatterchant api
     """
-    def __init__(self,customer_info, merchant_id=None):
-
+    def __init__(self, customer_info, merchant_id=None):
         u"""
         try to initiate a customer object with sane defaults
         """
-        self.merchant_id = merchant_id # nothing should work without it in theory
+        self.merchant_id = merchant_id  # nothing should work without it in theory
         self.id = customer_info.get(u"id", None)
         self.firstname = customer_info.get(u"firstname", None)
         self.lastname = customer_info.get(u"lastname", None)
@@ -198,7 +190,8 @@ class Customer(object):
             else:
                 self.cc_emails = eval(cc_email)
         except:
-            logger.error(u"wrong cc emails got {}".format(customer_info[u"cc_emails"]))
+            logger.error(u"wrong cc emails got {}".format(
+                customer_info[u"cc_emails"]))
             self.cc_emails = list()
         self.phone = customer_info.get(u"phone", None)
         self.address_1 = customer_info.get(u"address_1", None)
@@ -215,7 +208,7 @@ class Customer(object):
         self.deleted_at = customer_info.get(u"deleted_at", None)
         self.gravatar = customer_info.get(u"gravatar", None)
         self.payment_methods = list()
-    
+
     def update_payment_methods_for(self, payment_methods):
         u"""
         Find all payment methods for a given customer
@@ -246,13 +239,11 @@ class Customer(object):
 
     def __repr__(self):
         return u"""
-            "merchant": {mer} ,
             "first name": {fname},
             "last name": {lname},
             "email": {email},
             """.format(
-                mer=self.merchant_id,
-                fname=self.firstname,
-                lname=self.lastname,
-                email=self.email,
-            )
+            fname=self.firstname,
+            lname=self.lastname,
+            email=self.email,
+        )
