@@ -85,7 +85,7 @@ class CustomerApi(object):
             u"address_country": params.get(u"address_country", u""),
             u"reference": params.get(u"reference", u"")
         }
-        return self.request.post_request(endpoint=endpoint, body=body)
+        return self.request.post(endpoint=endpoint, payload=body)
 
     def delete(self, customer_id):
         u"""
@@ -124,7 +124,7 @@ class CustomerApi(object):
 
         """
         endpoint = u"customer/{}".format(customer_id)
-        return self.request.get_request(endpoint)
+        return self.request.get(endpoint=endpoint)
 
     def payment_methods(self, customer_id):
         u"""
@@ -133,7 +133,7 @@ class CustomerApi(object):
         """
         endpoint = u"customer/{}/payment-method".format(customer_id)
         payment_methods_customer = json.loads(
-            self.request.get_request(endpoint))
+            self.request.get(endpoint=endpoint))
         logger.debug(payment_methods_customer)
         if payment_methods_customer is None:
             return list()
@@ -166,7 +166,7 @@ class CustomerApi(object):
             u"address_country": params.get(u"address_country", u""),
             u"reference": params.get(u"reference")
         }
-        return self.request.put_request(endpoint=endpoint, body=body)
+        return self.request.put(endpoint=endpoint, payload=body)
 
 
 class Customer(object):
@@ -177,7 +177,7 @@ class Customer(object):
         u"""
         try to initiate a customer object with sane defaults
         """
-        self.merchant_id = merchant_id  # nothing should work without it in theory
+        self.merchant_id = merchant_id    # nothing should work without it in theory
         self.id = customer_info.get(u"id", None)
         self.firstname = customer_info.get(u"firstname", None)
         self.lastname = customer_info.get(u"lastname", None)

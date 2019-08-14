@@ -4,7 +4,7 @@ from __future__ import absolute_import
 import json
 import logging
 
-__author__ = "tanmay.datta86@gmail.com"
+__author__ = "austin.burns@fattmerchant.com"
 logger = logging.getLogger(__name__)
 
 
@@ -16,14 +16,14 @@ class Transaction():
         self.api_key = api_key
         self.request = request
 
-    def list(self, page=None):
+    def list(self, options={}):
         """
         Gets a list of transactions from the API
         """
 
-        endpoint = "transaction" if not page \
-            else "transaction/?page={}".format(page)
-        response = json.loads(self.request.get_request(endpoint))
+        endpoint = "transaction"
+        response = json.loads(
+            self.request.get(endpoint=endpoint, options=options))
 
         logger.debug(response)
         data = response['data']
@@ -36,7 +36,7 @@ class Transaction():
         """
 
         endpoint = "transaction/{}".format(id)
-        response = json.loads(self.request.get_request(endpoint))
+        response = json.loads(self.request.get(endpoint=endpoint))
 
         try:
             logger.debug(response)
@@ -52,7 +52,7 @@ class Transaction():
 
         endpoint = "transaction/{}/refund".format(id)
         response = json.loads(
-            self.request.post_request(endpoint, dict(total=amount)))
+            self.request.post(endpoint=endpoint, payload={"total": amount}))
 
         try:
             logger.debug(response)

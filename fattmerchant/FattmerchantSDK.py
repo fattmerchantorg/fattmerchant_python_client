@@ -10,6 +10,7 @@ from .Request import Request
 from .Customer import CustomerApi
 from .Merchant import Merchant
 from .Transaction import Transaction
+from .Deposit import Deposit
 
 
 class FattmerchantSDK(object):
@@ -23,3 +24,4 @@ class FattmerchantSDK(object):
         self.customer = CustomerApi(api_key, self.request)
         self.merchant = Merchant(api_key, self.request, self.customer)
         self.transaction = Transaction(api_key, self.request)
+        self.deposit = Deposit(api_key, self.request)

@@ -4,7 +4,7 @@
 This module cotains helper functions/class for creating fattmerchant requests
     :copyright: 2019 Fattmerchant
     :license: MIT
-    :author: Tanmay Dutta
+    :author: Austin Burns
 
 """
 
@@ -12,7 +12,6 @@ from __future__ import with_statement
 from __future__ import absolute_import
 import requests
 import os
-import json
 import logging
 
 self_path = os.path.dirname(__file__)
@@ -25,7 +24,7 @@ class Request():
     Class to get a valid fattmerchant request format
 
     """
-    def __init__(self, api_key, env):
+    def __init__(self, api_key, env="prod"):
         self.api_key = api_key
         self.use_env(env)
 
@@ -38,107 +37,105 @@ class Request():
         """
 
         prod_url = 'https://apiprod.fattlabs.com'
+        prod_fq_url = 'https://apiprod.fattlabs.com/query'
         demo_url = 'https://apidemo.fattlabs.com'
+        demo_fq_url = 'https://apidemo.fattlabs.com/query'
         local_url = 'http://localhost:8000'
-        mock_url = 'https://private-anon-c4e1c18d13-fattmerchant.apiary-mock.com/'
+        local_fq_url = 'http://localhost:3005'
+        mock_url = 'https://private-anon-c4e1c18d13-fattmerchant.apiary-mock.com'
+        mock_fq_url = 'http://localhost:8000'
 
         self.env = env
+        self.api = {}
 
-        if (env == "demo"):
-            self.api_url = demo_url
-        elif (env == "mock"):
-            self.api_url = mock_url
+        if (env == "prod"):
+            self.api["core"] = prod_url
+            self.api["fq"] = prod_fq_url
+        elif (env == "demo"):
+            self.api["core"] = demo_url
+            self.api["fq"] = demo_fq_url
         elif (env == "local"):
-            self.api_url = local_url
-        elif (env == "prod"):
-            self.api_url = prod_url
+            self.api["core"] = local_url
+            self.api["fq"] = local_fq_url
+        elif (env == "mock"):
+            self.api["core"] = mock_url
+            self.api["fq"] = mock_fq_url
 
-    def build_request(self, endpoint):
-        url = ("{api_url}/{endpoint}").format(api_url=self.api_url,
-                                              endpoint=endpoint)
-        headers = self.build_headers()
+    def __make_request(self,
+                       api_type,
+                       method,
+                       endpoint,
+                       options={},
+                       payload=None):
+        url = "{api}/{endpoint}{query_string}".format(
+            api=self.api[api_type],
+            endpoint=endpoint,
+            query_string=self.__build_query_string(options))
 
-        return url, headers
+        headers = self.__build_headers()
 
-    def build_headers(self):
+        # Get the correct "requests" class method by passing
+        # in the request method that we want
+        req = getattr(requests, method, 'get')
+
+        if payload is not None:
+            res = req(url, headers=headers, data=payload)
+        else:
+            res = req(url, headers=headers)
+
+        if res.status_code == 200:
+            return res.text
+        else:
+            logger.error("ERROR occured while trying to send a {} request: \
+                            URL: {}, HEADERS: {}, \
+                            STATUS CODE: {}, RESPONSE: {}".format(
+                method.upper(), url, headers, res.status_code, res.text))
+
+            return res.text
+
+    def __build_headers(self):
         return {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer {api_key}'.format(api_key=self.api_key),
             'Accept': 'application/json'
         }
 
-    def get_request(self, endpoint):
+    def __build_query_string(self, params):
+        if (len(params) == 0):
+            return ""
+
+        query_strings = []
+
+        for key, value in params.items():
+            query_strings.append("{}={}".format(key, value))
+
+        return "?" + "&".join(query_strings)
+
+    def get(self, api='core', endpoint='', options={}):
         """
+        Calls respective api with a `GET` HTTP method
 
-        To call all the "get" request with a given endpoint
-        for information on what endpoints are valid/available go to 
-        https://fattmerchant.com/api-documentation/
-
-        :param str endpoint: string for fattmerchant API endpoint
-
+        :param str api: Fattmerchant API base url to be requested
+        :param str endpoint: API endpoint to be requested
         """
-        url, headers = self.build_request(endpoint)
+        return self.__make_request(api, 'get', endpoint, options=options)
 
-        logger.error("ERROR occured while trying send a GET request: \
-                      URL: {}, HEADERS: {}".format(url, headers))
-
-        req = requests.get(url, headers=headers)
-
-        if req.status_code == 200:
-            return req.text
-        else:
-            logger.error("ERROR occured while trying send a GET request: \
-                          URL: {}, HEADERS: {}, \
-                          STATUS CODE: {}, RESPONSE: {}".format(
-                url, headers, req.status_code, req.text))
-
-            return req.text
-
-    def put_request(self, endpoint, body=None):
+    def post(self, api='core', endpoint='', payload={}):
         """
+        Calls respective api with a `POST` HTTP method
 
-        To call all the "put" request with a given endpoint
-        for information on what endpoints are valid/available go to 
-        https://fattmerchant.com/api-documentation/
-
-
-        :param str endpoint: string for fattmerchant API endpoint
-
+        :param str api: Fattmerchant API base url to be requested
+        :param str endpoint: API endpoint to be requested
+        :param dict payload: Data to be sent along with API request
         """
-        url, headers = self.build_request(endpoint)
+        return self.__make_request(api, 'post', endpoint, payload=payload)
 
-        req = requests.put(url, headers=headers, data=json.dumps(body))
-
-        if req.status_code == 200:
-            return req.text
-        else:
-            logger.error("ERROR occured while trying send a GET request: \
-                          URL: {}, HEADERS: {}, \
-                          STATUS CODE: {}, RESPONSE: {}".format(
-                url, headers, req.status_code, req.text))
-
-            return req.text
-
-    def post_request(self, endpoint, body=None):
+    def put(self, api='core', endpoint='', payload={}):
         """
+        Calls respective api with a `PUT` HTTP method
 
-        To call all the "post" request with a given endpoint
-        for information on what endpoints are valid/available go to 
-        https://fattmerchant.com/api-documentation/
-
-        :param str endpoint: string for fattmerchant API endpoint
-
+        :param str api: Fattmerchant API base url to be requested
+        :param str endpoint: API endpoint to be requested
+        :param dict payload: Data to be sent along with API request
         """
-        url, headers = self.build_request(endpoint)
-
-        req = requests.post(url, headers=headers, data=json.dumps(body))
-
-        if req.status_code == 200:
-            return req.text
-        else:
-            logger.error("ERROR occured while trying send a GET request: \
-                          URL: {}, HEADERS: {}, \
-                          STATUS CODE: {}, RESPONSE: {}".format(
-                url, headers, req.status_code, req.text))
-
-            return req.text
+        return self.__make_request(api, 'put', endpoint, payload=payload)
