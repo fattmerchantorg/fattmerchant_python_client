@@ -13,6 +13,7 @@ from __future__ import absolute_import
 import requests
 import os
 import logging
+import json
 
 self_path = os.path.dirname(__file__)
 logger = logging.getLogger(__name__)
@@ -79,7 +80,7 @@ class Request():
         req = getattr(requests, method, 'get')
 
         if payload is not None:
-            res = req(url, headers=headers, data=payload)
+            res = req(url, headers=headers, data=json.dumps(payload))
         else:
             res = req(url, headers=headers)
 
@@ -87,9 +88,10 @@ class Request():
             return res.text
         else:
             logger.error("ERROR occured while trying to send a {} request: \
-                            URL: {}, HEADERS: {}, \
+                            URL: {}, HEADERS: {}, PAYLOAD: {} \
                             STATUS CODE: {}, RESPONSE: {}".format(
-                method.upper(), url, headers, res.status_code, res.text))
+                method.upper(), url, headers, payload, res.status_code,
+                res.text))
 
             return res.text
 
