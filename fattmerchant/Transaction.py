@@ -26,9 +26,8 @@ class Transaction():
             self.request.get(endpoint=endpoint, options=options))
 
         logger.debug(response)
-        data = response['data']
 
-        return json.dumps(data)
+        return response["data"]
 
     def get(self, id):
         """
@@ -41,7 +40,7 @@ class Transaction():
         try:
             logger.debug(response)
 
-            return json.dumps(response)
+            return response
         except EnvironmentError:
             logger.error("The transaction id that was passed in is invalid")
 
@@ -51,12 +50,13 @@ class Transaction():
         """
 
         endpoint = "transaction/{}/refund".format(id)
+        payload = {"total": amount}
         response = json.loads(
-            self.request.post(endpoint=endpoint, payload={"total": amount}))
+            self.request.post(endpoint=endpoint, payload=payload))
 
         try:
             logger.debug(response)
 
-            return json.dumps(response)
+            return response
         except EnvironmentError:
             logger.error("The transaction id that was passed in is invalid")

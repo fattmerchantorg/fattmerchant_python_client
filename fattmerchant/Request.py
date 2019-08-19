@@ -111,7 +111,7 @@ class Request():
         for key, value in params.items():
             query_strings.append("{}={}".format(key, value))
 
-        return "?" + "&".join(query_strings)
+        return "?{}".format("&".join(query_strings))
 
     def get(self, api='core', endpoint='', options={}):
         """
