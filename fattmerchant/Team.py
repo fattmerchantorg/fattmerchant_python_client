@@ -83,7 +83,7 @@ class Team():
 
         token, user, team = self._create_team(payload)
 
-        endpoint = "/team/apikey"
+        endpoint = "team/apikey"
         payload = {
             "team_role": user['team_role'],
             "name": "{} API Key".format(team['company_name'])
