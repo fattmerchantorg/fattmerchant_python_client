@@ -15,13 +15,16 @@ import os
 import logging
 import json
 
+from .FattmerchantException import FattmerchantException, \
+    InvalidTokenException, ResourceDoesNotExistException, \
+    DuplicateResourceException, InvalidRequestDataException
+
 self_path = os.path.dirname(__file__)
 logger = logging.getLogger(__name__)
 
 
 class Request():
     """
-
     Class to get a valid fattmerchant request format
 
     """
@@ -33,7 +36,7 @@ class Request():
         """
         change enviornment for testing
 
-        :param env: string of enviornment can be "demo", "mock" or "prod"
+        :param env: string of enviornment can be "local", "demo" or "prod"
 
         """
 
@@ -43,8 +46,6 @@ class Request():
         demo_fq_url = 'https://apidemo.fattlabs.com/query'
         local_url = 'http://localhost:8000'
         local_fq_url = 'http://localhost:3005'
-        mock_url = 'https://private-anon-c4e1c18d13-fattmerchant.apiary-mock.com'
-        mock_fq_url = 'http://localhost:8000'
 
         self.env = env
         self.api = {}
@@ -58,9 +59,6 @@ class Request():
         elif (env == "local"):
             self.api["core"] = local_url
             self.api["fq"] = local_fq_url
-        elif (env == "mock"):
-            self.api["core"] = mock_url
-            self.api["fq"] = mock_fq_url
 
     def __make_request(self,
                        api_type,
@@ -86,14 +84,25 @@ class Request():
 
         if res.status_code == 200:
             return res.text
-        else:
-            logger.error("ERROR occured while trying to send a {} request: \
-                            URL: {}, HEADERS: {}, PAYLOAD: {} \
-                            STATUS CODE: {}, RESPONSE: {}".format(
-                method.upper(), url, headers, payload, res.status_code,
-                res.text))
 
-            return res.text
+        msg = "ERROR occured while trying to send a {} request: " \
+            "URL: {}, HEADERS: {}, PAYLOAD: {} " \
+            "STATUS CODE: {}, RESPONSE: {}"
+
+        logger.error(
+            msg.format(method.upper(), url, headers, payload, res.status_code,
+                       res.text))
+
+        if res.status_code == 401:
+            raise InvalidTokenException
+        elif res.status_code == 404:
+            raise ResourceDoesNotExistException
+        elif res.status_code == 409:
+            raise DuplicateResourceException
+        elif res.status_code == 422:
+            raise InvalidRequestDataException
+        else:
+            raise FattmerchantException
 
     def __build_headers(self):
         return {

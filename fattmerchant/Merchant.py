@@ -74,7 +74,7 @@ class Merchant():
             self.created_at = merchant_info[u'created_at']
             self.updated_at = merchant_info[u'updated_at']
             self.enable_full_description = True
-        except:
+        except Exception:
             self.company = None
             self.name = None
             self.enable_full_description = False
@@ -150,15 +150,16 @@ class Merchant():
         # todo: check if the customer exiss
 
         payment_method_id = token_id
-        logger.info("id returned by call =====> {}".format(payment_method_id))
+
         body = {
             "payment_method_id": payment_method_id,
             "meta": data["meta"],
             "total": data["total"],
             "pre_auth": data["pre_auth"]
         }
+
         answer = self.request.post(endpoint=endpoint, payload=body)
-        logger.debug(json.loads(answer))
+
         return json.loads(answer)
 
     def charge_customer_tokenized(self, customer_id, data):

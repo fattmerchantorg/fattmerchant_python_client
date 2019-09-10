@@ -4,6 +4,8 @@ from __future__ import absolute_import
 import json
 import logging
 
+from .FattmerchantException import InvalidRequestDataException
+
 __author__ = "austin.burns@fattmerchant.com"
 logger = logging.getLogger(__name__)
 
@@ -23,21 +25,15 @@ class Deposit():
         """
 
         if ("startDate" not in options and "endDate" not in options):
-            msg = "At least startDate or endDate \
-                   are required to make this request"
+            msg = "At least a startDate or endDate" \
+                " is required to make this request."
 
-            raise AttributeError(msg)
+            raise InvalidRequestDataException(msg)
 
         endpoint = "deposit"
         response = json.loads(self.request.get(self.api, endpoint, options))
 
-        try:
-            logger.debug(response)
-
-            return json.dumps(response['data'])
-        except AttributeError:
-            logger.error(
-                "Unable to make request with options: {}".format(options))
+        return response['data']
 
     def get(self, options):
         """
@@ -45,16 +41,11 @@ class Deposit():
         """
 
         if ("startDate" not in options):
-            msg = "A startDate is required to perform this request"
+            msg = "A startDate is required to perform this request."
 
-            raise AttributeError(msg)
+            raise InvalidRequestDataException(msg)
 
         endpoint = "depositDetail"
         response = json.loads(self.request.get(self.api, endpoint, options))
 
-        try:
-            logger.debug(response)
-
-            return json.dumps(response['data'])
-        except AttributeError:
-            logger.error("The deposit id that was passed in is invalid")
+        return response['data']

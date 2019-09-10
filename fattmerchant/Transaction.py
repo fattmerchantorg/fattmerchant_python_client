@@ -4,6 +4,8 @@ from __future__ import absolute_import
 import json
 import logging
 
+from .FattmerchantException import InvalidRequestDataException
+
 __author__ = "austin.burns@fattmerchant.com"
 logger = logging.getLogger(__name__)
 
@@ -25,38 +27,41 @@ class Transaction():
         response = json.loads(
             self.request.get(endpoint=endpoint, options=options))
 
-        logger.debug(response)
-
         return response["data"]
 
-    def get(self, id):
+    def get(self, id=None):
         """
         Gets a single transaction's details from the API
         """
 
+        if not isinstance(id, str) or id is None:
+            msg = "An id of type string has to be passed in with the request."
+
+            raise InvalidRequestDataException(msg)
+
         endpoint = "transaction/{}".format(id)
-        response = json.loads(self.request.get(endpoint=endpoint))
 
-        try:
-            logger.debug(response)
+        return json.loads(self.request.get(endpoint=endpoint))
 
-            return response
-        except EnvironmentError:
-            logger.error("The transaction id that was passed in is invalid")
-
-    def refund(self, id, amount):
+    def refund(self, id=None, amount=None):
         """
         Refund a certain amount of a transaction
         """
 
+        if not isinstance(id, str) or id is None:
+            msg = "An id of type string has to be passed in with the request."
+
+            raise InvalidRequestDataException(msg)
+
+        if not isinstance(amount, float) \
+                or isinstance(amount, int) or amount is None:
+            msg = "An amount of type int or float has to be passed " \
+                "in with the request."
+
+            raise InvalidRequestDataException(msg)
+
         endpoint = "transaction/{}/refund".format(id)
         payload = {"total": amount}
-        response = json.loads(
-            self.request.post(endpoint=endpoint, payload=payload))
 
-        try:
-            logger.debug(response)
-
-            return response
-        except EnvironmentError:
-            logger.error("The transaction id that was passed in is invalid")
+        return json.loads(self.request.post(endpoint=endpoint,
+                                            payload=payload))
