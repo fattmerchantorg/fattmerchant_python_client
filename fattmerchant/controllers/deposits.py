@@ -4,18 +4,17 @@ from __future__ import absolute_import
 import json
 import logging
 
-from .FattmerchantException import InvalidRequestDataException
+from fattmerchant.exceptions import InvalidRequestDataException
 
 __author__ = "austin.burns@fattmerchant.com"
 logger = logging.getLogger(__name__)
 
 
-class Deposit():
+class DepositsController():
     """
     Class to allow interfacing with deposits within the Fattmerchant API
     """
-    def __init__(self, api_key, request):
-        self.api_key = api_key
+    def __init__(self, request):
         self.request = request
         self.api = "fq"
 

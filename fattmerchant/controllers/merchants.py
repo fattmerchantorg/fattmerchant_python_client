@@ -1,36 +1,19 @@
-# -*- coding: utf-8 -*-
-"""
-For defining helper classes for fattmerchant merchant behaviour
-"""
-
 from __future__ import absolute_import
 
 import json
 import logging
 
-from .Customer import Customer
+from fattmerchant.models import Merchant, Customer
 
-__author__ = "tanmay.datta86@gmail.com"
 logger = logging.getLogger(__name__)
 
 
-class MerchantItems(object):
-    """
-    Helper Class for creating merchant items
-    """
-    def __init__(self, itemJson):
-        self.id = itemJson["id"]
-        self.user_id = itemJson["user_id"]
-        self.merchant_id = itemJson["merchant_id"]
-
-
-class Merchant():
+class MerchantsController():
     """
     Class to maintain merchant object easily
 
     """
-    def __init__(self, api_key, request, customer):
-        self.api_key = api_key
+    def __init__(self, request, customer):
         self.request = request
 
     def __repr__(self):
@@ -91,8 +74,7 @@ class Merchant():
         endpoint = "merchant"
         body = {
             "name": self.name,
-            "company": self.company,
-            "api_key": self.api_key
+            "company": self.company
         }
         id_info = self.request.put(endpoint=endpoint, payload=body)
         logger.debug("id info is {}".format(id_info))
@@ -110,7 +92,7 @@ class Merchant():
         self.merchant_items = []
         for item in items:
             logger.debug(item)
-            self.merchant_items.append(MerchantItems(item))
+            self.merchant_items.append(Merchant(item))
         return self.merchant_items
 
     def get_all_customers(self):

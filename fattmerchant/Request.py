@@ -15,7 +15,7 @@ import os
 import logging
 import json
 
-from .FattmerchantException import FattmerchantException, \
+from fattmerchant.exceptions import FattmerchantException, \
     InvalidTokenException, ResourceDoesNotExistException, \
     DuplicateResourceException, InvalidRequestDataException
 

@@ -1,8 +1,3 @@
-#!/bin/bash
-u"""
-For definiting fattmerchant customer class
-"""
-
 from __future__ import absolute_import
 __author__ = u"tanmay.datta86@gmail.com"
 
@@ -12,9 +7,8 @@ import json
 logger = logging.getLogger(__name__)
 
 
-class CustomerApi(object):
-    u"""
-    
+class CustomersController(object):
+    """
     Helper class for getting customer related information.
     """
     def __init__(self, api_key, request=None, company=None):
@@ -167,83 +161,3 @@ class CustomerApi(object):
             u"reference": params.get(u"reference")
         }
         return self.request.put(endpoint=endpoint, payload=body)
-
-
-class Customer(object):
-    u"""
-    The customer object given by the fatterchant api
-    """
-    def __init__(self, customer_info, merchant_id=None):
-        u"""
-        try to initiate a customer object with sane defaults
-        """
-        self.merchant_id = merchant_id    # nothing should work without it in theory
-        self.id = customer_info.get(u"id", None)
-        self.firstname = customer_info.get(u"firstname", None)
-        self.lastname = customer_info.get(u"lastname", None)
-        self.company = customer_info.get(u"company", None)
-        self.email = customer_info.get(u"email", None)
-        try:
-            cc_email = customer_info.get(u"cc_emails", u"[]")
-            if cc_email in [None, []]:
-                self.cc_emails = []
-            else:
-                self.cc_emails = eval(cc_email)
-        except:
-            logger.error(u"wrong cc emails got {}".format(
-                customer_info[u"cc_emails"]))
-            self.cc_emails = list()
-        self.phone = customer_info.get(u"phone", None)
-        self.address_1 = customer_info.get(u"address_1", None)
-        self.address_2 = customer_info.get(u"address_2", None)
-        self.address_city = customer_info.get(u"address_city", None)
-        self.address_state = customer_info.get(u"address_state", None)
-        self.address_zip = customer_info.get(u"address_zip", None)
-        self.address_country = customer_info.get(u"address_country", None)
-        self.notes = customer_info.get(u"notes", None)
-        self.reference = customer_info.get(u"reference", None)
-        self.options = customer_info.get(u"options", None)
-        self.created_at = customer_info.get(u"created_at", None)
-        self.updated_at = customer_info.get(u"updated_at", None)
-        self.deleted_at = customer_info.get(u"deleted_at", None)
-        self.gravatar = customer_info.get(u"gravatar", None)
-        self.payment_methods = list()
-
-    def update_payment_methods_for(self, payment_methods):
-        u"""
-        Find all payment methods for a given customer
-
-        """
-        self.payment_methods = payment_methods
-
-    def to_json(self):
-        u"""
-
-        Returns json representation that can be uploaded/post to fattmerchant api
-        """
-        return {
-            u"firstname": self.firstname,
-            u"lastname": self.lastname,
-            u"company": self.company,
-            u"email": self.email,
-            u"cc_emails": self.cc_emails,
-            u"phone": self.phone,
-            u"address_1": self.address_1,
-            u"address_2": self.address_2,
-            u"address_city": self.address_city,
-            u"address_state": self.address_state,
-            u"address_zip": unicode(self.address_zip),
-            u"address_country": self.address_country,
-            u"reference": self.reference
-        }
-
-    def __repr__(self):
-        return u"""
-            "first name": {fname},
-            "last name": {lname},
-            "email": {email},
-            """.format(
-            fname=self.firstname,
-            lname=self.lastname,
-            email=self.email,
-        )

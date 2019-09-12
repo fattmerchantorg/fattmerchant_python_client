@@ -1,0 +1,5 @@
+from fattmerchant.controllers.transactions import TransactionsController
+from fattmerchant.controllers.customers import CustomersController
+from fattmerchant.controllers.merchants import MerchantsController
+from fattmerchant.controllers.teams import TeamsController
+from fattmerchant.controllers.deposits import DepositsController
