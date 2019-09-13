@@ -1,8 +1,3 @@
-import logging
-
-logger = logging.getLogger(__name__)
-
-
 class Customer(object):
     """
     The customer object given by the fatterchant api

@@ -1,9 +1,8 @@
-from __future__ import absolute_import
-
 import json
 import logging
 
-__author__ = "austin.burns@fattmerchant.com"
+from fattmerchant.models import Team
+
 logger = logging.getLogger(__name__)
 
 
@@ -79,15 +78,15 @@ class TeamsController():
         tuple: ({team permanent api key}, {team data})
         """
 
-        token, user, team = self._create_team(payload)
+        token, user_data, team_data = self._create_team(payload)
 
         endpoint = "team/apikey"
         payload = {
-            "team_role": user['team_role'],
-            "name": "{} API Key".format(team['company_name'])
+            "team_role": user_data['team_role'],
+            "name": "{} API Key".format(team_data['company_name'])
         }
 
         response = json.loads(
             self.request.post(endpoint=endpoint, payload=payload))
 
-        return (response['api_key'], team)
+        return (response['api_key'], Team(team_data))
