@@ -1,5 +1,4 @@
 from fattmerchant.models.transaction import Transaction
 from fattmerchant.models.customer import Customer
-from fattmerchant.models.merchant import Merchant
 from fattmerchant.models.team import Team
-from fattmerchant.models.deposit import Deposit
+from fattmerchant.models.deposit import DepositBatch, DepositBatchDetail

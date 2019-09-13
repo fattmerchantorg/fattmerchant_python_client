@@ -1,14 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-For defining helper classes for fattmerchant merchant behaviour
-"""
-
-from __future__ import absolute_import
-
 from fattmerchant.request import Request
-
 from fattmerchant.controllers import TransactionsController, \
-    CustomersController, MerchantsController, TeamsController, \
+    CustomersController, ChargesController, TeamsController, \
     DepositsController
 
 
@@ -24,4 +16,4 @@ class FMClient(object):
         self.teams = TeamsController(request)
         self.transactions = TransactionsController(request)
         self.deposits = DepositsController(request)
-        self.merchants = MerchantsController(request, self.customers)
+        self.charges = ChargesController(request)
