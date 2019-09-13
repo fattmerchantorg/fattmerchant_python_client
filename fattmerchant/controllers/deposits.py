@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-
 import json
 import logging
 
 from fattmerchant.exceptions import InvalidRequestDataException
+from fattmerchant.models import DepositBatch, DepositBatchDetail
 
-__author__ = "austin.burns@fattmerchant.com"
 logger = logging.getLogger(__name__)
 
 
@@ -20,7 +17,7 @@ class DepositsController():
 
     def list(self, options):
         """
-        Gets a list of deposits within a certain fate range from the API
+        Gets a list of deposits within a certain date range from the API
         """
 
         if ("startDate" not in options and "endDate" not in options):
@@ -32,7 +29,12 @@ class DepositsController():
         endpoint = "deposit"
         response = json.loads(self.request.get(self.api, endpoint, options))
 
-        return response['data']
+        deposits = []
+
+        for deposit_data in response["data"]:
+            deposits.append(DepositBatch(deposit_data))
+
+        return deposits
 
     def get(self, options):
         """
@@ -47,4 +49,9 @@ class DepositsController():
         endpoint = "depositDetail"
         response = json.loads(self.request.get(self.api, endpoint, options))
 
-        return response['data']
+        deposits = []
+
+        for deposit_data in response["data"]:
+            deposits.append(DepositBatchDetail(deposit_data))
+
+        return deposits
