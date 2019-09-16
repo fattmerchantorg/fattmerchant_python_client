@@ -7,7 +7,6 @@ from fattmerchant.controllers import TransactionsController, \
 class FMClient(object):
     """
     Class to set up the Fattmerchant Python SDK
-
     """
     def __init__(self, api_key, env="prod"):
         request = Request(api_key, env)

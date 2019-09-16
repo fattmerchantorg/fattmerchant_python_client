@@ -1,9 +1,9 @@
 from datetime import datetime
 
 
-class Team():
+class Merchant():
     """
-    Team model class
+    Merchant model class
     """
     def __init__(self, data):
         self.id = data.get("id")
@@ -21,9 +21,10 @@ class Team():
         self.address_state = data.get("address_state")
         self.address_zip = data.get("address_zip")
         self.hosted_payments_token = data.get("hosted_payments_token")
-        self.plan = data.get("plan")
-        self.options = data.get("options"),
+        self.options = data.get("options")
+        self.notes = data.get("notes")
         self.gateway_type = data.get("gateway_type")
+        self.vendor_keys = data.get("vendor_keys")
         self.processor = data.get("processor")
         self.partner = data.get("partner")
         self.product_type = data.get("product_type")
@@ -66,9 +67,10 @@ class Team():
             'address_state: {!r}, ' \
             'address_zip: {!r}, ' \
             'hosted_payments_token: {!r}, ' \
-            'plan: {!r}, ' \
             'options: {!r}, ' \
+            'notes: {!r}, ' \
             'gateway_type: {!r}, ' \
+            'vendor_keys: {!r}, ' \
             'processor: {!r}, ' \
             'partner: {!r}, ' \
             'product_type: {!r}, ' \
@@ -101,9 +103,10 @@ class Team():
                 self.address_state,
                 self.address_zip,
                 self.hosted_payments_token,
-                self.plan,
                 self.options,
+                self.notes,
                 self.gateway_type,
+                self.vendor_keys,
                 self.processor,
                 self.partner,
                 self.product_type,

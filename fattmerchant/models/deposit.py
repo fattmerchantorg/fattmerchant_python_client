@@ -1,18 +1,23 @@
+from datetime import datetime
+
+
 class DepositBatch():
     """
     Deposit batch model class
     """
     def __init__(self, data):
-        self.batch_id = data.get("batch_id", None)
-        self.batched_at = data.get("batched_at", None)
-        self.last_transaction = data.get("last_transaction", None)
-        self.count = data.get("count", None)
-        self.sum = data.get("sum", None)
-        self.avg = data.get("avg", None)
-        self.min = data.get("min", None)
-        self.max = data.get("max", None)
-        self.std = data.get("std", None)
-        self.fees = data.get("fees", None)
+        self.batch_id = data.get("batch_id")
+        self.batched_at = datetime.strptime(
+            data.get("batched_at"),
+            '%Y-%m-%d %H:%M:%S') if data.get("batched_at") else None
+        self.last_transaction = data.get("last_transaction")
+        self.count = data.get("count")
+        self.sum = data.get("sum")
+        self.avg = data.get("avg")
+        self.min = data.get("min")
+        self.max = data.get("max")
+        self.std = data.get("std")
+        self.fees = data.get("fees")
 
     def __repr__(self):
         repr = '{}(' \
@@ -48,9 +53,13 @@ class DepositBatchDetail():
     """
     def __init__(self, data):
         self.batch_id = data.get("batch_id", None)
-        self.batched_at = data.get("batched_at", None)
+        self.batched_at = datetime.strptime(
+            data.get("batched_at"),
+            '%Y-%m-%d %H:%M:%S') if data.get("batched_at") else None
         self.auth_id = data.get("auth_id", None)
-        self.created_at = data.get("created_at", None)
+        self.created_at = datetime.strptime(
+            data.get("created_at"),
+            '%Y-%m-%d %H:%M:%S') if data.get("created_at") else None
         self.total = data.get("total", None)
         self.fees = data.get("fees", None)
         self.last_four = data.get("last_four", None)

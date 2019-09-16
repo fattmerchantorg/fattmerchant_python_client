@@ -1,77 +1,88 @@
-class Customer(object):
+from datetime import datetime
+
+
+class Customer():
     """
-    The customer object given by the fatterchant api
+    Customer model class
     """
-    def __init__(self, customer_info, merchant_id=None):
-        """
-        try to initiate a customer object with sane defaults
-        """
-        self.merchant_id = merchant_id
-        self.id = customer_info.get("id", None)
-        self.firstname = customer_info.get("firstname", None)
-        self.lastname = customer_info.get("lastname", None)
-        self.company = customer_info.get("company", None)
-        self.email = customer_info.get("email", None)
-        try:
-            cc_email = customer_info.get("cc_emails", "[]")
-            if cc_email in [None, []]:
-                self.cc_emails = []
-            else:
-                self.cc_emails = eval(cc_email)
-        except Exception:
-            logger.error("wrong cc emails got {}".format(
-                customer_info["cc_emails"]))
-            self.cc_emails = list()
-        self.phone = customer_info.get("phone", None)
-        self.address_1 = customer_info.get("address_1", None)
-        self.address_2 = customer_info.get("address_2", None)
-        self.address_city = customer_info.get("address_city", None)
-        self.address_state = customer_info.get("address_state", None)
-        self.address_zip = customer_info.get("address_zip", None)
-        self.address_country = customer_info.get("address_country", None)
-        self.notes = customer_info.get("notes", None)
-        self.reference = customer_info.get("reference", None)
-        self.options = customer_info.get("options", None)
-        self.created_at = customer_info.get("created_at", None)
-        self.updated_at = customer_info.get("updated_at", None)
-        self.deleted_at = customer_info.get("deleted_at", None)
-        self.gravatar = customer_info.get("gravatar", None)
-        self.payment_methods = list()
-
-    def update_payment_methods_for(self, payment_methods):
-        """
-        Find all payment methods for a given customer
-
-        """
-        self.payment_methods = payment_methods
-
-    def to_json(self):
-        """
-        Json representation that can be used for the API
-        """
-        return {
-            "firstname": self.firstname,
-            "lastname": self.lastname,
-            "company": self.company,
-            "email": self.email,
-            "cc_emails": self.cc_emails,
-            "phone": self.phone,
-            "address_1": self.address_1,
-            "address_2": self.address_2,
-            "address_city": self.address_city,
-            "address_state": self.address_state,
-            "address_zip": unicode(self.address_zip),
-            "address_country": self.address_country,
-            "reference": self.reference
-        }
+    def __init__(self, data):
+        self.id = data.get("id")
+        self.firstname = data.get("firstname")
+        self.lastname = data.get("lastname")
+        self.company = data.get("company")
+        self.email = data.get("email")
+        self.cc_emails = data.get("cc_emails")
+        self.cc_sms = data.get("cc_sms")
+        self.phone = data.get("phone")
+        self.address_1 = data.get("address_1")
+        self.address_2 = data.get("address_2")
+        self.address_city = data.get("address_city")
+        self.address_state = data.get("address_state")
+        self.address_zip = data.get("address_zip")
+        self.address_country = data.get("address_country")
+        self.notes = data.get("notes")
+        self.reference = data.get("reference")
+        self.options = data.get("options")
+        self.created_at = datetime.strptime(
+            data.get("created_at"),
+            '%Y-%m-%d %H:%M:%S') if data.get("created_at") else None
+        self.updated_at = datetime.strptime(
+            data.get("updated_at"),
+            '%Y-%m-%d %H:%M:%S') if data.get("updated_at") else None
+        self.deleted_at = datetime.strptime(
+            data.get("deleted_at"),
+            '%Y-%m-%d %H:%M:%S') if data.get("deleted_at") else None
+        self.allow_invoice_credit_card_payments = data.get(
+            "allow_invoice_credit_card_payments")
+        self.gravatar = data.get("gravatar")
 
     def __repr__(self):
-        return """
-            "first name": {fname},
-            "last name": {lname},
-            "email": {email},
-            """.format(
-            fname=self.firstname,
-            lname=self.lastname,
-            email=self.email,
-        )
+        repr = '{}(' \
+            'id: {!r}, ' \
+            'firstname: {!r}, ' \
+            'lastname: {!r}, ' \
+            'company: {!r}, ' \
+            'email: {!r}, ' \
+            'cc_emails: {!r}, ' \
+            'cc_sms: {!r}, ' \
+            'phone: {!r}, ' \
+            'address_1: {!r}, ' \
+            'address_2: {!r}, ' \
+            'address_city: {!r}, ' \
+            'address_state: {!r}, ' \
+            'address_zip: {!r}, ' \
+            'address_country: {!r}, ' \
+            'notes: {!r}, ' \
+            'reference: {!r}, ' \
+            'options: {!r}, ' \
+            'created_at: {!r}, ' \
+            'updated_at: {!r}, ' \
+            'deleted_at: {!r}, ' \
+            'allow_invoice_credit_card_payments: {!r}, ' \
+            'gravatar: {!r})'.format(
+                self.__class__.__name__,
+                self.id,
+                self.firstname,
+                self.lastname,
+                self.company,
+                self.email,
+                self.cc_emails,
+                self.cc_sms,
+                self.phone,
+                self.address_1,
+                self.address_2,
+                self.address_city,
+                self.address_state,
+                self.address_zip,
+                self.address_country,
+                self.notes,
+                self.reference,
+                self.options,
+                self.created_at,
+                self.updated_at,
+                self.deleted_at,
+                self.allow_invoice_credit_card_payments,
+                self.gravatar
+            )
+
+        return repr

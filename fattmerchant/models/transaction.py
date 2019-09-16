@@ -1,62 +1,88 @@
+from datetime import datetime
+
+from fattmerchant.models import Customer, Merchant, PaymentMethod, User
+
+
 class Transaction():
     """
     Transaction model class
     """
     def __init__(self, data):
-        self.id = data.get("id", None)
-        self.invoice_id = data.get("invoice_id", None)
-        self.reference_id = data.get("reference_id", None)
-        self.recurring_transaction_id = data.get("recurring_transaction_id",None)
-        self.auth_id = data.get("auth_id", None)
-        self.type = data.get("type", None)
-        self.source = data.get("source", None)
-        self.is_merchant_present = data.get("is_merchant_present", None)
-        self.merchant_id = data.get("merchant_id", None)
-        self.user_id = data.get("user_id", None)
-        self.customer_id = data.get("customer_id", None)
-        self.payment_method_id = data.get("payment_method_id", None)
-        self.is_manual = data.get("is_manual", None)
-        self.success = data.get("success", None)
-        self.message = data.get("message", None)
-        self.meta = data.get("meta", None)
-        self.total = data.get("total", None)
-        self.method = data.get("method", None)
-        self.pre_auth = data.get("pre_auth", None)
-        self.is_captured = data.get("is_captured", None)
-        self.last_four = data.get("last_four", None)
-        self.interchange_code = data.get("interchange_code", None)
-        self.interchange_fee = data.get("interchange_fee", None)
-        self.batch_id = data.get("batch_id", None)
-        self.batched_at = data.get("batched_at", None)
-        self.emv_response = data.get("emv_response", None)
-        self.avs_response = data.get("avs_response", None)
-        self.cvv_response = data.get("cvv_response", None)
-        self.pos_entry = data.get("pos_entry", None)
-        self.pos_salesperson = data.get("pos_salesperson", None)
-        self.receipt_email_at = data.get("receipt_email_at", None)
-        self.receipt_sms_at = data.get("receipt_sms_at", None)
-        self.settled_at = data.get("settled_at", None)
-        self.created_at = data.get("created_at", None)
-        self.updated_at = data.get("updated_at", None)
-        self.source_ip = data.get("source_ip", None)
-        self.gateway_id = data.get("gateway_id", None)
-        self.issuer_auth_code = data.get("issuer_auth_code", None)
-        self.total_refunded = data.get("total_refunded", None)
-        self.is_refundable = data.get("is_refundable", None)
-        self.is_voided = data.get("is_voided", None)
-        self.is_voidable = data.get("is_voidable", None)
-        self.schedule_id = data.get("schedule_id", None)
-        self.child_captures = data.get("child_captures", None),
-        self.parent_auth = data.get("parent_auth", None),
-        self.gateway_name = data.get("gateway_name", None),
-        self.response = data.get("response", None)
-        self.is_settling = data.get("is_settling", None)
-        self.customer = data.get("customer", None)
-        self.child_transactions = data.get("child_transactions", None)
-        self.files = data.get("files", None)
-        self.payment_method = data.get("payment_method", None)
-        self.user = data.get("user", None)
-        self.merchant = data.get("merchant", None)
+        self.id = data.get("id")
+        self.invoice_id = data.get("invoice_id")
+        self.reference_id = data.get("reference_id")
+        self.recurring_transaction_id = data.get("recurring_transaction_id")
+        self.auth_id = data.get("auth_id")
+        self.type = data.get("type")
+        self.source = data.get("source")
+        self.is_merchant_present = data.get("is_merchant_present")
+        self.merchant_id = data.get("merchant_id")
+        self.user_id = data.get("user_id")
+        self.customer_id = data.get("customer_id")
+        self.payment_method_id = data.get("payment_method_id")
+        self.is_manual = data.get("is_manual")
+        self.success = data.get("success")
+        self.message = data.get("message")
+        self.meta = data.get("meta")
+        self.total = data.get("total")
+        self.method = data.get("method")
+        self.pre_auth = data.get("pre_auth")
+        self.is_captured = data.get("is_captured")
+        self.last_four = data.get("last_four")
+        self.interchange_code = data.get("interchange_code")
+        self.interchange_fee = data.get("interchange_fee")
+        self.batch_id = data.get("batch_id")
+        self.batched_at = datetime.strptime(
+            data.get("batched_at"),
+            '%Y-%m-%d %H:%M:%S') if data.get("batched_at") else None
+        self.emv_response = data.get("emv_response")
+        self.avs_response = data.get("avs_response")
+        self.cvv_response = data.get("cvv_response")
+        self.pos_entry = data.get("pos_entry")
+        self.pos_salesperson = data.get("pos_salesperson")
+        self.receipt_email_at = data.get("receipt_email_at")
+        self.receipt_sms_at = data.get("receipt_sms_at")
+        self.settled_at = datetime.strptime(
+            data.get("settled_at"),
+            '%Y-%m-%d %H:%M:%S') if data.get("settled_at") else None
+        self.created_at = datetime.strptime(
+            data.get("created_at"),
+            '%Y-%m-%d %H:%M:%S') if data.get("created_at") else None
+        self.updated_at = datetime.strptime(
+            data.get("updated_at"),
+            '%Y-%m-%d %H:%M:%S') if data.get("updated_at") else None
+        self.source_ip = data.get("source_ip")
+        self.gateway_id = data.get("gateway_id")
+        self.issuer_auth_code = data.get("issuer_auth_code")
+        self.total_refunded = data.get("total_refunded")
+        self.is_refundable = data.get("is_refundable")
+        self.is_voided = data.get("is_voided")
+        self.is_voidable = data.get("is_voidable")
+        self.schedule_id = data.get("schedule_id")
+        self.child_captures = data.get("child_captures"),
+        self.parent_auth = data.get("parent_auth"),
+        self.gateway_name = data.get("gateway_name"),
+        self.response = data.get("response")
+        self.is_settling = data.get("is_settling")
+        self.customer = Customer(data.get("customer")) \
+            if data.get("customer") else None
+
+        child_transactions = data.get("child_transactions")
+        if child_transactions:
+            self.child_transactions = []
+
+            for transaction in child_transactions:
+                self.child_transactions.append(Transaction(transaction))
+        else:
+            self.child_transactions = None
+
+        self.files = data.get("files")
+        self.payment_method = PaymentMethod(data.get("payment_method")) \
+            if data.get("payment_method") else None
+        self.user = User(data.get("user")) \
+            if data.get("user") else None
+        self.merchant = Merchant(data.get("merchant")) \
+            if data.get("merchant") else None
 
     def __repr__(self):
         repr = '{}(' \
