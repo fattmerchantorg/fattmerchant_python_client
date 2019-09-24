@@ -6,9 +6,9 @@ from os import path, getenv
 from json import load
 
 
-def setup_logging(default_path='logging.json',
-                  default_level=logging.INFO,
-                  env_key='LOG_CFG'):
+def setup_logging(
+    default_path='logging.json', default_level=logging.INFO, env_key='LOG_CFG'
+):
     """
     Setup logging configuration
     """

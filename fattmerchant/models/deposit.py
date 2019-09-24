@@ -1,24 +1,47 @@
 from datetime import datetime
 
 
-class DepositBatch():
+class DepositBatch(object):
     """
     Deposit batch model class
     """
     def __init__(self, data):
         self.batch_id = data.get("batch_id")
-        self.batched_at = datetime.strptime(
-            data.get("batched_at"),
-            '%Y-%m-%d %H:%M:%S') if data.get("batched_at") else None
-        self.last_transaction = data.get("last_transaction")
-        self.count = data.get("count")
-        self.sum = data.get("sum")
-        self.avg = data.get("avg")
-        self.min = data.get("min")
-        self.max = data.get("max")
-        self.std = data.get("std")
-        self.fees = data.get("fees")
+        """ Id of the deposit batch """
 
+        self.batched_at = datetime.strptime(
+            data.get("batched_at"), '%Y-%m-%d %H:%M:%S'
+        ) if data.get("batched_at") else None
+        """ When the deposit batch was created """
+
+        self.last_transaction = data.get("last_transaction")
+        """ The last transaction of the deposit batch """
+
+        self.count = data.get("count")
+        """ The number of deposits in the batch """
+
+        self.sum = data.get("sum")
+        """ The sum of the totals from the deposits in the batch """
+
+        self.avg = data.get("avg")
+        """ The avg of the totals from the deposits in the batch """
+
+        self.min = data.get("min")
+        """ The minimum total of the totals from the deposits in the batch """
+
+        self.max = data.get("max")
+        """ The maximum total of the totals from the deposits in the batch """
+
+        self.std = data.get("std")
+        """
+        The standard deviation of the totals from the deposits in the batch
+        """
+
+        self.fees = data.get("fees")
+        """
+        The total amount of money the merchant is paying in fees for all
+        deposits
+        """
     def __repr__(self):
         repr = '{}(' \
             'batch_id: {!r}, ' \
@@ -47,24 +70,37 @@ class DepositBatch():
         return repr
 
 
-class DepositBatchDetail():
+class DepositDetails(object):
     """
-    Deposit batch detail model class
+    Deposit details model class
     """
     def __init__(self, data):
         self.batch_id = data.get("batch_id", None)
-        self.batched_at = datetime.strptime(
-            data.get("batched_at"),
-            '%Y-%m-%d %H:%M:%S') if data.get("batched_at") else None
-        self.auth_id = data.get("auth_id", None)
-        self.created_at = datetime.strptime(
-            data.get("created_at"),
-            '%Y-%m-%d %H:%M:%S') if data.get("created_at") else None
-        self.total = data.get("total", None)
-        self.fees = data.get("fees", None)
-        self.last_four = data.get("last_four", None)
-        self.card_type = data.get("card_type", None)
+        """ Id of the deposit batch """
 
+        self.batched_at = datetime.strptime(
+            data.get("batched_at"), '%Y-%m-%d %H:%M:%S'
+        ) if data.get("batched_at") else None
+        """ When the deposit batch was created """
+
+        self.auth_id = data.get("auth_id", None)
+        """ The auth id of the deposit """
+
+        self.created_at = datetime.strptime(
+            data.get("created_at"), '%Y-%m-%d %H:%M:%S'
+        ) if data.get("created_at") else None
+        """ When the deposit was created """
+
+        self.total = data.get("total", None)
+        """ The total amount of the deposit """
+
+        self.last_four = data.get("last_four", None)
+        """
+        The last four numbers of the credit card used for the deposit
+        """
+
+        self.card_type = data.get("card_type", None)
+        """ The type of credit card used for the deposit """
     def __repr__(self):
         repr = '{}(' \
             'batch_id: {!r}, ' \

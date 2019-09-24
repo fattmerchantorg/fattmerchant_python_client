@@ -1,15 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-
-This module cotains helper functions/class for creating fattmerchant requests
-    :copyright: 2019 Fattmerchant
-    :license: MIT
-    :author: Austin Burns
-
-"""
-
-from __future__ import with_statement
-from __future__ import absolute_import
 import requests
 import os
 import logging
@@ -23,7 +11,7 @@ self_path = os.path.dirname(__file__)
 logger = logging.getLogger(__name__)
 
 
-class Request():
+class Request(object):
     """
     Class to get a valid fattmerchant request format
 
@@ -60,16 +48,14 @@ class Request():
             self.api["core"] = local_url
             self.api["fq"] = local_fq_url
 
-    def __make_request(self,
-                       api_type,
-                       method,
-                       endpoint,
-                       options={},
-                       payload=None):
+    def __make_request(
+        self, api_type, method, endpoint, options={}, payload=None
+    ):
         url = "{api}/{endpoint}{query_string}".format(
             api=self.api[api_type],
             endpoint=endpoint,
-            query_string=self.__build_query_string(options))
+            query_string=self.__build_query_string(options)
+        )
 
         headers = self.__build_headers()
 
@@ -90,8 +76,11 @@ class Request():
             "STATUS CODE: {}, RESPONSE: {}"
 
         logger.error(
-            msg.format(method.upper(), url, headers, payload, res.status_code,
-                       res.text))
+            msg.format(
+                method.upper(), url, headers, payload, res.status_code,
+                res.text
+            )
+        )
 
         if res.status_code == 401:
             raise InvalidTokenException

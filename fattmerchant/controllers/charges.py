@@ -1,33 +1,66 @@
 import json
 import logging
 
+from fattmerchant.exceptions import InvalidRequestDataException
 from fattmerchant.models import Transaction
 
 logger = logging.getLogger(__name__)
 
 
-class ChargesController():
+class ChargesController(object):
     """
     Class to allow interfacing with charges within the Fattmerchant API
     """
     def __init__(self, request):
         self.request = request
 
-    def create(self, payment_method_id, data):
+    def create(self, id=None, meta=None, total=None, pre_auth=None):
         """
-        Allows a merchant to charge a customer through the API
-        with a payment method id
+        Creates a charge for a merchant through the API
+
+        :param id: A payment method ID
+        :type id: string
+        :param meta: Any meta data for the payment *i.e. tax*
+        :type meta: dict
+        :param total: The total amount to charge
+        :type total: float
+        :param pre_auth: Whether or not to confirm funds exist
+        :type pre_auth: boolean
+
+        :return: A single transaction object
+        :rtype: :doc:`../models/transaction`
+
+        :raise InvalidRequestDataException: Raised if **id** is not
+            provided or **meta** is not provided or **total** is not provided
+
         """
+
+        if not isinstance(id, (str, unicode)) or id is None:
+            msg = "An id of type string is required to complete the request."
+
+            raise InvalidRequestDataException(msg)
+
+        if not isinstance(meta, dict) or total is None:
+            msg = "A total of type int or float is required to complete " \
+                "the request."
+
+            raise InvalidRequestDataException(msg)
+
+        if not isinstance(total, (int, float)) or total is None:
+            msg = "A meta object of type dict is required to complete " \
+                "the request."
+
+            raise InvalidRequestDataException(msg)
+
         endpoint = "charge"
 
-        payload = {
-            "payment_method_id": payment_method_id,
-            "meta": data["meta"],
-            "total": data["total"],
-            "pre_auth": data["pre_auth"]
-        }
+        payload = {"payment_method_id": id, "meta": meta, "total": total}
+
+        if pre_auth is not None:
+            payload["pre_auth"] = pre_auth
 
         response = json.loads(
-            self.request.post(endpoint=endpoint, payload=payload))
+            self.request.post(endpoint=endpoint, payload=payload)
+        )
 
         return Transaction(response)
