@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="fattmerchant",
-    version="0.0.0.9",
-    author="Tanmay Dutta",
-    author_email="tanmay.datta86@gmail.com",
-    description="python client for fattmerchant payment processing",
+    version="1.0.0",
+    author="Austin Burns",
+    author_email="austin.burns@fattmerchant.com",
+    description="Python client for Fattmerchant",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/fattmerchantorg/fattmerchant_python_client",
