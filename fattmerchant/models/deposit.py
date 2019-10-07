@@ -101,6 +101,25 @@ class DepositDetails(object):
 
         self.card_type = data.get("card_type", None)
         """ The type of credit card used for the deposit """
+
+        self.method = data.get("method", None)
+        """ The payment method of the deposit """
+
+        self.transaction_id = data.get("transaction_id", None)
+        """ The id of the transaction that is tied to the deposit """
+
+        self.customer_firstname = data.get("customer_firstname", None)
+        """ The first name of the customer tied to the deposit """
+
+        self.customer_lastname = data.get("customer_lastname", None)
+        """ The last name of the customer tied to the deposit """
+
+        self.customer_email = data.get("customer_email", None)
+        """ The email of the customer tied to the deposit """
+
+        self.customer_company = data.get("customer_company", None)
+        """ The company of the customer tied to the deposit """
+
     def __repr__(self):
         repr = '{}(' \
             'batch_id: {!r}, ' \
@@ -109,7 +128,13 @@ class DepositDetails(object):
             'created_at: {!r}, ' \
             'total: {!r}, ' \
             'last_four: {!r}, ' \
-            'card_type: {!r})'.format(
+            'card_type: {!r}, ' \
+            'method: {!r}, ' \
+            'transaction_id: {!r}, ' \
+            'customer_firstname: {!r}, ' \
+            'customer_lastname: {!r}, ' \
+            'customer_email: {!r}, ' \
+            'customer_company: {!r})'.format(
                 self.__class__.__name__,
                 self.batched_at,
                 self.batch_id,
@@ -118,6 +143,12 @@ class DepositDetails(object):
                 self.total,
                 self.last_four,
                 self.card_type,
+                self.method,
+                self.transaction_id,
+                self.customer_firstname,
+                self.customer_lastname,
+                self.customer_email,
+                self.customer_company,
             )
 
         return repr
