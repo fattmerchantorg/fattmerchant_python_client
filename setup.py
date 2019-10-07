@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="fattmerchant",
-    version="1.0.0",
+    version="1.0.1",
     author="Austin Burns",
     author_email="austin.burns@fattmerchant.com",
     description="Python client for Fattmerchant",

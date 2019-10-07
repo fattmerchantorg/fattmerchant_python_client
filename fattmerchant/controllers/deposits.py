@@ -41,22 +41,37 @@ class DepositsController(object):
 
         """
 
-        # yapf: disable
-        if (
-            "start_date" not in options
-                or not isinstance(options["start_date"], (str, unicode))
-            and "end_date" not in options
-                or not isinstance(options["end_date"], (str, unicode))
-        ):
+        # Check if any of the dates are part of the options
+        if ("start_date" not in options and "end_date" not in options):
             # yapf: enable
             msg = "At least a start_date or end_date is required to " \
                 "make this request."
 
             raise InvalidRequestDataException(msg)
 
-        # Change the date keys to keys the API accepts
-        options["startDate"] = options.pop("start_date")
-        options["endDate"] = options.pop("end_date")
+        # Make sure that the start date is of either type string or unicode
+        if (
+            "start_date" in options
+            and not isinstance(options["start_date"], (str, unicode))
+        ):
+            msg = "The start date needs to be of type string."
+
+            raise InvalidRequestDataException(msg)
+        else:
+            # Change the date keys to keys the API accepts
+            options["startDate"] = options.pop("start_date")
+
+        # Make sure that the start date is of either type string or unicode
+        if (
+            "end_date" in options
+            and not isinstance(options["end_date"], (str, unicode))
+        ):
+            msg = "The end date needs to be of type string."
+
+            raise InvalidRequestDataException(msg)
+        else:
+            # Change the date keys to keys the API accepts
+            options["endDate"] = options.pop("end_date")
 
         endpoint = "deposit"
         response = json.loads(self.request.get(self.api, endpoint, options))
@@ -95,22 +110,33 @@ class DepositsController(object):
 
         """
 
-        # yapf: disable
-        if (
-            "start_date" not in options
-                or not isinstance(options["start_date"], (str, unicode))
-            and "end_date" not in options
-                or not isinstance(options["end_date"], (str, unicode))
-        ):
+        # Check if any of the dates are part of the options
+        if ("start_date" not in options and "end_date" not in options):
             # yapf: enable
             msg = "At least a start_date or end_date is required to " \
                 "make this request."
 
             raise InvalidRequestDataException(msg)
 
-        # Change the date keys to keys the API accepts
-        options["startDate"] = options.pop("start_date")
-        options["endDate"] = options.pop("end_date")
+        # Make sure that the start date is of either type string or unicode
+        if ("start_date" in options):
+            if (not isinstance(options["start_date"], (str, unicode))):
+                msg = "The start date needs to be of type string. "
+
+                raise InvalidRequestDataException(msg)
+            else:
+                # Change the date keys to keys the API accepts
+                options["startDate"] = options.pop("start_date")
+
+        # Make sure that the end date is of either type string or unicode
+        if ("end_date" in options):
+            if (not isinstance(options["end_date"], (str, unicode))):
+                msg = "The end date needs to be of type string."
+
+                raise InvalidRequestDataException(msg)
+            else:
+                # Change the date keys to keys the API accepts
+                options["endDate"] = options.pop("end_date")
 
         endpoint = "depositDetail"
         response = json.loads(self.request.get(self.api, endpoint, options))
