@@ -14,7 +14,7 @@ class TransactionsController(object):
     def __init__(self, request):
         self.request = request
 
-    def list(self, options):
+    def list(self, options={}):
         """
         Gets a list of transactions from the API
 

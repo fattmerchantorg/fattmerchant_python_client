@@ -83,15 +83,19 @@ class Request(object):
         )
 
         if res.status_code == 401:
-            raise InvalidTokenException
+            raise InvalidTokenException(message=res.text)
         elif res.status_code == 404:
-            raise ResourceDoesNotExistException
+            raise ResourceDoesNotExistException(message=res.text)
         elif res.status_code == 409:
-            raise DuplicateResourceException
+            raise DuplicateResourceException(message=res.text)
+        elif res.status_code == 400:
+            raise InvalidRequestDataException(
+                status_code=400, message=res.text
+            )
         elif res.status_code == 422:
-            raise InvalidRequestDataException
+            raise InvalidRequestDataException(message=res.text)
         else:
-            raise FattmerchantException
+            raise FattmerchantException(message=res.text)
 
     def __build_headers(self):
         return {

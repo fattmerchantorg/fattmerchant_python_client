@@ -12,9 +12,9 @@ class FattmerchantException(Exception):
     default_code = 422
     default_message = 'An error has occured.'
 
-    def __init__(self, message=None):
+    def __init__(self, status_code=None, message=None):
         self._message = message or self.default_message
-        self.code = self.default_code
+        self.code = status_code or self.default_code
 
         super(Exception, self).__init__(self._message)
 

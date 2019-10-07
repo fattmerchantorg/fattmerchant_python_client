@@ -10,7 +10,7 @@ class DepositBatch(object):
         """ Id of the deposit batch """
 
         self.batched_at = datetime.strptime(
-            data.get("batched_at"), '%Y-%m-%d %H:%M:%S'
+            data.get("batched_at"), '%Y-%m-%d'
         ) if data.get("batched_at") else None
         """ When the deposit batch was created """
 
@@ -108,7 +108,6 @@ class DepositDetails(object):
             'auth_id: {!r}, ' \
             'created_at: {!r}, ' \
             'total: {!r}, ' \
-            'fees:{!r}, '\
             'last_four: {!r}, ' \
             'card_type: {!r})'.format(
                 self.__class__.__name__,
@@ -117,7 +116,6 @@ class DepositDetails(object):
                 self.auth_id,
                 self.created_at,
                 self.total,
-                self.fees,
                 self.last_four,
                 self.card_type,
             )
