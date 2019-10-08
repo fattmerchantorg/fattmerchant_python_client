@@ -35,19 +35,19 @@ class ChargesController(object):
 
         """
 
-        if not isinstance(id, (str, unicode)) or id is None:
+        if id is None or not isinstance(id, (str, unicode)):
             msg = "An id of type string is required to complete the request."
 
             raise InvalidRequestDataException(msg)
 
-        if not isinstance(meta, dict) or total is None:
-            msg = "A total of type int or float is required to complete " \
+        if meta is None or not isinstance(meta, dict):
+            msg = "A meta object of type dict is required to complete " \
                 "the request."
 
             raise InvalidRequestDataException(msg)
 
-        if not isinstance(total, (int, float)) or total is None:
-            msg = "A meta object of type dict is required to complete " \
+        if total is None or not isinstance(total, (int, float)):
+            msg = "A total of type int or float is required to complete " \
                 "the request."
 
             raise InvalidRequestDataException(msg)
