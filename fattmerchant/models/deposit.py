@@ -79,7 +79,7 @@ class DepositDetails(object):
         """ Id of the deposit batch """
 
         self.batched_at = datetime.strptime(
-            data.get("batched_at"), '%Y-%m-%d %H:%M:%S'
+            data.get("batched_at"), '%Y-%m-%dT%X.%fZ'
         ) if data.get("batched_at") else None
         """ When the deposit batch was created """
 
@@ -87,7 +87,7 @@ class DepositDetails(object):
         """ The auth id of the deposit """
 
         self.created_at = datetime.strptime(
-            data.get("created_at"), '%Y-%m-%d %H:%M:%S'
+            data.get("created_at"), '%Y-%m-%dT%X.%fZ'
         ) if data.get("created_at") else None
         """ When the deposit was created """
 
@@ -119,7 +119,6 @@ class DepositDetails(object):
 
         self.customer_company = data.get("customer_company", None)
         """ The company of the customer tied to the deposit """
-
     def __repr__(self):
         repr = '{}(' \
             'batch_id: {!r}, ' \
