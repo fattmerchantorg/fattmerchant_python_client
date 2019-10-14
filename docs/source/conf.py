@@ -35,7 +35,7 @@ copyright = "2019, Austin Burns"
 author = "Austin Burns"
 
 # The full version, including alpha/beta/rc tags
-release = "1.1.1"
+release = "1.1.2"
 
 # -- General configuration ---------------------------------------------------
 # Add any Sphinx extension module names here, as strings. They can be
