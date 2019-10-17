@@ -75,7 +75,7 @@ class DepositDetails(object):
     Deposit details model class
     """
     def __init__(self, data):
-        self.batch_id = data.get("batch_id", None)
+        self.batch_id = data.get("batch_id")
         """ Id of the deposit batch """
 
         self.batched_at = datetime.strptime(
@@ -83,7 +83,7 @@ class DepositDetails(object):
         ) if data.get("batched_at") else None
         """ When the deposit batch was created """
 
-        self.auth_id = data.get("auth_id", None)
+        self.auth_id = data.get("auth_id")
         """ The auth id of the deposit """
 
         self.created_at = datetime.strptime(
@@ -91,33 +91,36 @@ class DepositDetails(object):
         ) if data.get("created_at") else None
         """ When the deposit was created """
 
-        self.total = data.get("total", None)
+        self.total = data.get("total")
         """ The total amount of the deposit """
 
-        self.last_four = data.get("last_four", None)
+        self.fees = data.get("fees")
+        """ The amount of money the merchant is paying in fees """
+
+        self.last_four = data.get("last_four")
         """
         The last four numbers of the credit card used for the deposit
         """
 
-        self.card_type = data.get("card_type", None)
+        self.card_type = data.get("card_type")
         """ The type of credit card used for the deposit """
 
-        self.method = data.get("method", None)
+        self.method = data.get("method")
         """ The payment method of the deposit """
 
-        self.transaction_id = data.get("transaction_id", None)
+        self.transaction_id = data.get("transaction_id")
         """ The id of the transaction that is tied to the deposit """
 
-        self.customer_firstname = data.get("customer_firstname", None)
+        self.customer_firstname = data.get("customer_firstname")
         """ The first name of the customer tied to the deposit """
 
-        self.customer_lastname = data.get("customer_lastname", None)
+        self.customer_lastname = data.get("customer_lastname")
         """ The last name of the customer tied to the deposit """
 
-        self.customer_email = data.get("customer_email", None)
+        self.customer_email = data.get("customer_email")
         """ The email of the customer tied to the deposit """
 
-        self.customer_company = data.get("customer_company", None)
+        self.customer_company = data.get("customer_company")
         """ The company of the customer tied to the deposit """
     def __repr__(self):
         repr = '{}(' \
@@ -126,6 +129,7 @@ class DepositDetails(object):
             'auth_id: {!r}, ' \
             'created_at: {!r}, ' \
             'total: {!r}, ' \
+            'fees: {!r}, ' \
             'last_four: {!r}, ' \
             'card_type: {!r}, ' \
             'method: {!r}, ' \
@@ -135,11 +139,12 @@ class DepositDetails(object):
             'customer_email: {!r}, ' \
             'customer_company: {!r})'.format(
                 self.__class__.__name__,
-                self.batched_at,
                 self.batch_id,
+                self.batched_at,
                 self.auth_id,
                 self.created_at,
                 self.total,
+                self.fees,
                 self.last_four,
                 self.card_type,
                 self.method,
