@@ -10,7 +10,7 @@ class DepositBatch(object):
         """ Id of the deposit batch """
 
         self.batched_at = datetime.strptime(
-            data.get("batched_at"), '%Y-%m-%d'
+            data.get("batched_at"), '%Y-%m-%d %H:%M:%S'
         ) if data.get("batched_at") else None
         """ When the deposit batch was created """
 
@@ -79,7 +79,7 @@ class DepositDetails(object):
         """ Id of the deposit batch """
 
         self.batched_at = datetime.strptime(
-            data.get("batched_at"), '%Y-%m-%dT%X.%fZ'
+            data.get("batched_at"), '%Y-%m-%d %H:%M:%S'
         ) if data.get("batched_at") else None
         """ When the deposit batch was created """
 
@@ -87,7 +87,7 @@ class DepositDetails(object):
         """ The auth id of the deposit """
 
         self.created_at = datetime.strptime(
-            data.get("created_at"), '%Y-%m-%dT%X.%fZ'
+            data.get("created_at"), '%Y-%m-%d %H:%M:%S'
         ) if data.get("created_at") else None
         """ When the deposit was created """
 
