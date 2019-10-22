@@ -91,7 +91,8 @@ In VScode install [Python Extensions](https://github.com/Microsoft/vscode-python
 
 In `.vscode/settings.json` enter this:
 
-````{
+```
+{
   "python.pythonPath": "venv/bin/python",
   "editor.formatOnSave": true,
   "python.formatting.provider": "yapf",
@@ -99,14 +100,14 @@ In `.vscode/settings.json` enter this:
   "python.linting.pylintEnabled": false,
   "python.linting.enabled": true,
   "restructuredtext.confPath": "${workspaceFolder}/docs/source"
-}```
+}
+```
 
 Then, if VSCode asks you to install anything like flake8 just click "yes".
 
 Then, Select the Python binary as `venv` in VSCode:
 
 ![select venv binary](./images/selectPythonBinary.png)
-````
 
 ## Test The Util
 
@@ -131,6 +132,8 @@ transaction = fatt.transactions.get(transactions[0].id)
 print repr(transaction)
 
 ```
+
+**Then run**
 
 ```
 python test.py
