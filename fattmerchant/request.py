@@ -32,6 +32,8 @@ class Request(object):
         prod_fq_url = 'https://apiprod.fattlabs.com/query'
         demo_url = 'https://apidemo.fattlabs.com'
         demo_fq_url = 'https://apidemo.fattlabs.com/query'
+        dev_url = 'https://apidev.fattlabs.com'
+        dev_fq_url = 'https://apidev.fattlabs.com/query'
         local_url = 'http://localhost:8000'
         local_fq_url = 'http://localhost:3005'
 
@@ -44,6 +46,9 @@ class Request(object):
         elif (env == "demo"):
             self.api["core"] = demo_url
             self.api["fq"] = demo_fq_url
+        elif (env == "dev"):
+            self.api["core"] = dev_url
+            self.api["fq"] = dev_fq_url
         elif (env == "local"):
             self.api["core"] = local_url
             self.api["fq"] = local_fq_url
