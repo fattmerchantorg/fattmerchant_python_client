@@ -80,11 +80,10 @@ _Note: If you get an error about zlib, then you may need to install with Homebre
 
 **When done using venv**
 
-`````
+```
 # within your venv session...
 deactivate
 ```
-
 
 ### VSCode Settings
 
@@ -107,7 +106,7 @@ Then, if VSCode asks you to install anything like flake8 just click "yes".
 Then, Select the Python binary as `venv` in VSCode:
 
 ![select venv binary](./images/selectPythonBinary.png)
-`````
+````
 
 ## Test The Util
 
