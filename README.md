@@ -155,4 +155,6 @@ pip install -r requirements.txt
 make upload
 ```
 
+If you get an auth error, before you fix your password and try again, clear the `dist` folder: `rm -f dist/*.gz && rm -f dist/*.whl`
+
 The project is released here: https://pypi.org/project/fattmerchant/
