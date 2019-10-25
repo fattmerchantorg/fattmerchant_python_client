@@ -35,7 +35,7 @@ copyright = "2019, Fattmerchant INC"
 author = "Fattmerchant INC"
 
 # The full version, including alpha/beta/rc tags
-release = "1.1.6"
+release = "1.1.7"
 
 # -- General configuration ---------------------------------------------------
 # Add any Sphinx extension module names here, as strings. They can be

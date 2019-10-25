@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="fattmerchant",
-    version="1.1.6",
+    version="1.1.7",
     author="Fattmerchant INC",
     author_email="support@fattmerchant.com",
     description="Python Client for Fattmerchant's Omni API",
