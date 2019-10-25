@@ -138,3 +138,21 @@ print repr(transaction)
 ```
 python test.py
 ```
+
+## Release to PyPi
+
+Increment version number in these files:
+
+- ./setup.py
+- ./docs/source/conf.py
+
+```
+source venv/bin/activate
+
+# this will install yapf and everything else in requirements.txt
+pip install -r requirements.txt
+
+make upload
+```
+
+The project is released here: https://pypi.org/project/fattmerchant/
