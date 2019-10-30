@@ -29,6 +29,10 @@ fatt = FMClient(
 pm = fatt.paymentmethods.get('0001477e-6d77-421b-9c78-3596e56618bb')
 print repr(pm)
 
+# Test team/registration PUT 
+# reg = fatt.teams.update_registration({'email': 'bistol@bistol.com', 'phone_number': '4072277778', 'job_title': ''});
+
+# print repr(reg)
 # deposits = fatt.deposits.list({'start_date': '2017-01-01 18:05:23'})
 
     # print deposits
