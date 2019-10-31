@@ -1,7 +1,7 @@
 from fattmerchant.request import Request
 from fattmerchant.controllers import TransactionsController, \
     CustomersController, ChargesController, TeamsController, \
-    DepositsController
+    DepositsController, PaymentMethodsController
 
 
 class FMClient(object):
@@ -16,3 +16,4 @@ class FMClient(object):
         self.transactions = TransactionsController(request)
         self.deposits = DepositsController(request)
         self.charges = ChargesController(request)
+        self.paymentmethods = PaymentMethodsController(request)

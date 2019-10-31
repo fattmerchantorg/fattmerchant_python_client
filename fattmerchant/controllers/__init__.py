@@ -3,3 +3,4 @@ from fattmerchant.controllers.customers import CustomersController    # NOQA: F4
 from fattmerchant.controllers.charges import ChargesController    # NOQA: F401, E501
 from fattmerchant.controllers.teams import TeamsController    # NOQA: F401, E501
 from fattmerchant.controllers.deposits import DepositsController    # NOQA: F401, E501
+from fattmerchant.controllers.paymentmethods import PaymentMethodsController    # NOQA: F401, E501

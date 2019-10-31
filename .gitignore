@@ -106,7 +106,7 @@ venv*
 .mypy_cache/
 
 # My test file
-test.py
+# test.py
 
 # Mac files
 .DS_Store

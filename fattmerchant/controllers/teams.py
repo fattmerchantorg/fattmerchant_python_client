@@ -3,7 +3,7 @@ import logging
 
 from fattmerchant.exceptions import InvalidRequestDataException, \
     ResourceNotCreatedException
-from fattmerchant.models import Team
+from fattmerchant.models import Team, TeamRegistration
 
 logger = logging.getLogger(__name__)
 
@@ -121,3 +121,26 @@ class TeamsController(object):
         )
 
         return (response["api_key"], Team(team_data))
+
+    def update_registration(self, payload):
+        """
+        Private method to make the API call to update a team registration
+
+        Args:
+            payload (dict): A dictionary with all data necessary to update
+                team registration
+
+        Returns:
+            tuple: A tuple with an api key, a user for a merchant, and said
+                merchant
+
+        Raises:
+            ResourceNotCreatedException: If the team couldn't be accessed
+                then it wasn't able to be created
+
+        """
+
+        endpoint = "team/registration"
+        response = self.request.put(endpoint=endpoint, payload=payload)
+
+        return TeamRegistration(json.loads(response))

@@ -31,11 +31,11 @@ html_theme_options = {
 # -- Project information -----------------------------------------------------
 
 project = "fattmerchant"
-copyright = "2019, Austin Burns"
-author = "Austin Burns"
+copyright = "2019, Fattmerchant INC"
+author = "Fattmerchant INC"
 
 # The full version, including alpha/beta/rc tags
-release = "1.1.5"
+release = "1.1.8"
 
 # -- General configuration ---------------------------------------------------
 # Add any Sphinx extension module names here, as strings. They can be
