@@ -9,5 +9,6 @@ All Models
         models/merchant
         models/payment_method
         models/team
+        models/team_registration
         models/transaction
         models/user

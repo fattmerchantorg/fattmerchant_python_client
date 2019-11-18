@@ -135,8 +135,8 @@ class TeamsController(object):
                 merchant
 
         Raises:
-            ResourceNotCreatedException: If the team couldn't be accessed
-                then it wasn't able to be created
+            ResourceNotUpdatedException: If the team couldn't be accessed
+                then it wasn't able to be updated
 
         """
 
