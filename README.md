@@ -111,33 +111,20 @@ Then, Select the Python binary as `venv` in VSCode:
 
 ## Test The Util
 
-Make a new file like:
+Go to `tests/static_data` directory and create a file called "API_KEY" and 
+paste your API Key in this file. 
 
-`code test.py`
+### This file is added to gitignore to make sure that you never accidentally commit it.
 
-```
-// test.py
+At the moment we jut have Basic_tests.py file working. 
 
-from fattmerchant.client import FMClient
+To test the file you can run 
+`python -m unittest tests\Basic_tests.py`
 
-fatt = FMClient(
-    "API_KEY_HERE",
-    "local"
-)
+Developer should model their tests similar to what is written here.
 
-transactions = fatt.transactions.list({ "page": 1 })
+Ideally there will be a separate file for each controller/module. 
 
-transaction = fatt.transactions.get(transactions[0].id)
-
-print repr(transaction)
-
-```
-
-**Then run**
-
-```
-python test.py
-```
 
 ## Release to PyPi
 
