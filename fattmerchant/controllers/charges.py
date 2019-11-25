@@ -35,7 +35,7 @@ class ChargesController(object):
 
         """
 
-        if id is None or not isinstance(id, (str, unicode)):
+        if id is None or not isinstance(id, str):
             msg = "An id of type string is required to complete the request."
 
             raise InvalidRequestDataException(msg)

@@ -21,7 +21,7 @@ def compare_json_data(source_data_a, source_data_b):
                 return False
 
             # iterate over dictionary keys
-            for dict_key, dict_value in data_a.items():
+            for dict_key, dict_value in list(data_a.items()):
                 # key exists in [data_b] dictionary, and same value?
                 if (
                     (dict_key not in data_b)

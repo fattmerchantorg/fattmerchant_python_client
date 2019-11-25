@@ -60,7 +60,7 @@ class TransactionsController(object):
 
         """
 
-        if not isinstance(id, (str, unicode)) or id is None:
+        if not isinstance(id, str) or id is None:
             msg = "An id of type string has to be passed in with the request."
 
             raise InvalidRequestDataException(msg)
@@ -87,7 +87,7 @@ class TransactionsController(object):
 
         """
 
-        if not isinstance(id, (str, unicode)) or id is None:
+        if not isinstance(id, str) or id is None:
             msg = "An id of type string has to be passed in with the request."
 
             raise InvalidRequestDataException(msg)

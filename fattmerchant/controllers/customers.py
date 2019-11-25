@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+
 __author__ = "tanmay.datta86@gmail.com"
 
 import logging
@@ -58,11 +58,11 @@ class CustomersController(object):
 
         """  # NOQA: E501
 
-        endpoint = u'customer'
+        endpoint = 'customer'
         required_fields = {"firstname", "lastname", "company", "email"}
 
         if not all(
-            field in payload and isinstance(payload[field], (str, unicode))
+            field in payload and isinstance(payload[field], str)
             for field in required_fields
         ):
             msg = "A dict with at least a firstname, lastname, email, and " \
@@ -111,7 +111,7 @@ class CustomersController(object):
 
         """
 
-        if not isinstance(id, (str, unicode)) or id is None:
+        if not isinstance(id, str) or id is None:
             msg = "An id of type string has to be passed in with the request."
 
             raise InvalidRequestDataException(msg)
@@ -135,7 +135,7 @@ class CustomersController(object):
 
         """
 
-        if not isinstance(id, (str, unicode)) or id is None:
+        if not isinstance(id, str) or id is None:
             msg = "An id of type string has to be passed in with the request."
 
             raise InvalidRequestDataException(msg)
