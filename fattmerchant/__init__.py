@@ -1,5 +1,3 @@
-
-
 import logging.config
 
 from os import path, getenv
@@ -12,20 +10,14 @@ def setup_logging(
     """
     Setup logging configuration
     """
-    log_path = default_path
     value = getenv(env_key, None)
+    log_path = default_path if value is None else value
 
-    if value:
-        log_path = value
+    root_path = path.dirname(path.abspath(__file__))
+    log_config_path = path.join(root_path, log_path)
 
-    log_config_path = path.join(path.dirname(path.abspath(__file__)), log_path)
-
-    info_log_path = path.join(
-        path.dirname(path.dirname(path.abspath(__file__))), 'logs/info.log'
-    )
-    error_log_path = path.join(
-        path.dirname(path.dirname(path.abspath(__file__))), 'logs/error.log'
-    )
+    info_log_path = path.join(path.dirname(root_path), 'logs/info.log')
+    error_log_path = path.join(path.dirname(root_path), 'logs/error.log')
 
     if path.exists(log_config_path):
         with open(log_config_path, 'rt') as f:
