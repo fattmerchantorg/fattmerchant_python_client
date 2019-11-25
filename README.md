@@ -139,6 +139,24 @@ print repr(transaction)
 python test.py
 ```
 
+## Update Read the Docs 
+
+- If adding a model or controller, make sure you add the new `.rst` file too `controllers.rst` or `models.rst` 
+- Then add a new `.rst` file within the controllers or models directory in this format :
+
+```
+My New Model/Controller
+ ========
+ .. automodule:: fattmerchant.controllers/model.my_new_model_or_controller
+     :members:
+```
+
+- Deploy changes (to master)
+- Get login credentials to Read the Docs 
+- Once logged in, go into the `Fattmerchant Python SDK` project
+- Go into the builds tab and click on the `Build Version` button, while `latest` is selected
+- Verify docs are updated successfully.
+
 ## Release to PyPi
 
 Increment version number in these files:
