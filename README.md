@@ -54,23 +54,30 @@ source ~/.bash_profile
 ```
 cd path/to/project
 
+# First check python version
+`python --version`
+
+If python version comes up to be 3.x.x then skip to creating virtualenv
+
+
 # this is the current version we use
-pyenv install 2.7.16
+pyenv install 3.8
 
 # so far it's installed but not used
 # use it globally
-pyenv global 2.7.16
+pyenv global 3.8
 source ~/.zshrc
 # or ~/.bash_profile
 
+# Create Virtualenv
 pip install virtualenv
 
 # do this anywhere you have a python project
 virtualenv venv
 
 # source the venv
-# this is ONLY for your current session, (your terminal Tab)
-source venv/bin/activate
+# Note that virtualenv activates the python versoin ONLY for your current session, (your terminal Tab)
+`source venv/bin/activate`
 
 # this will install yapf and everything else in requirements.txt
 pip install -r requirements.txt
@@ -107,7 +114,7 @@ Then, if VSCode asks you to install anything like flake8 just click "yes".
 
 Then, Select the Python binary as `venv` in VSCode:
 
-![select venv binary](./images/selectPythonBinary.png)
+![select venv binary](./images/selectPython3.png)
 
 ## Test The Util
 
