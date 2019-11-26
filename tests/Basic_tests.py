@@ -14,13 +14,13 @@ class CustomerTests(unittest.TestCase):
         cls.fatt = FMClient(
             API_KEY,
             "prod")
-        
+
     def test_creation_of_customerApi(self):
         customer = self.fatt.customers.list()
         print("customers retuned ==> {} \n".format(customer))
         self.assertIsInstance(customer, list)
-        
-    def test_transcation_list(self):
+
+    def test_transaction_list(self):
         transactions = self.fatt.transactions.list({ "page": 1 })
         print(transactions)
         try:
