@@ -116,17 +116,41 @@ Then, Select the Python binary as `venv` in VSCode:
 
 ![select venv binary](./images/selectPython3.png)
 
-## Test The Util
+## SDK Usage (For client)
+Ensure that you have fattmerchant installed from pypi
+create a new file fm_client.py
+and put the following code 
+
+```
+from fattmerchant.client import FMClient	
+fatt = FMClient(	
+    "YOUR_API_KEY_HERE",	
+    "local"	
+)
+```
+API key can get requested from 
+
+https://fattmerchant.com/omni-overview-lp/
+
+## Test the package
 
 Go to `tests/static_data` directory and create a file called "API_KEY" and 
 paste your API Key in this file. 
+
+(Sometimes this does not work as expected because of 1.Pasting the key with quotes 2.Having an extra line in the file.)
 
 ### This file is added to gitignore to make sure that you never accidentally commit it.
 
 At the moment we jut have Basic_tests.py file working. 
 
 To test the file you can run 
+*Windows*
 `python -m unittest tests\Basic_tests.py`
+
+*Mac/Linux*
+
+`python -m unittest tests/Basic_tests.py`
+
 
 Developer should model their tests similar to what is written here.
 
