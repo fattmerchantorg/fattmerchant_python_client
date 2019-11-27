@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+
 __author__ = "daniel@fattmerchant.com"
 
 import logging
@@ -31,7 +31,7 @@ class PaymentMethodsController(object):
 
         """
 
-        if not isinstance(id, (str, unicode)) or id is None:
+        if not isinstance(id, str) or id is None:
             msg = "An id of type string has to be passed in with the request."
 
             raise InvalidRequestDataException(msg)

@@ -54,23 +54,30 @@ source ~/.bash_profile
 ```
 cd path/to/project
 
+# First check python version
+`python --version`
+
+If python version comes up to be 3.x.x then skip to creating virtualenv
+
+
 # this is the current version we use
-pyenv install 2.7.16
+pyenv install 3.8
 
 # so far it's installed but not used
 # use it globally
-pyenv global 2.7.16
+pyenv global 3.8
 source ~/.zshrc
 # or ~/.bash_profile
 
+# Create Virtualenv
 pip install virtualenv
 
 # do this anywhere you have a python project
 virtualenv venv
 
 # source the venv
-# this is ONLY for your current session, (your terminal Tab)
-source venv/bin/activate
+# Note that virtualenv activates the python versoin ONLY for your current session, (your terminal Tab)
+`source venv/bin/activate`
 
 # this will install yapf and everything else in requirements.txt
 pip install -r requirements.txt
@@ -107,37 +114,48 @@ Then, if VSCode asks you to install anything like flake8 just click "yes".
 
 Then, Select the Python binary as `venv` in VSCode:
 
-![select venv binary](./images/selectPythonBinary.png)
+![select venv binary](./images/selectPython3.png)
 
-## Test The Util
-
-Make a new file like:
-
-`code test.py`
+## SDK Usage (For client)
+Ensure that you have fattmerchant installed from pypi
+create a new file fm_client.py
+and put the following code 
 
 ```
-// test.py
-
-from fattmerchant.client import FMClient
-
-fatt = FMClient(
-    "API_KEY_HERE",
-    "local"
+from fattmerchant.client import FMClient	
+fatt = FMClient(	
+    "YOUR_API_KEY_HERE",	
+    "local"	
 )
-
-transactions = fatt.transactions.list({ "page": 1 })
-
-transaction = fatt.transactions.get(transactions[0].id)
-
-print repr(transaction)
-
 ```
+API key can get requested from 
 
-**Then run**
+https://fattmerchant.com/omni-overview-lp/
 
-```
-python test.py
-```
+## Test the package
+
+Go to `tests/static_data` directory and create a file called "API_KEY" and 
+paste your API Key in this file. 
+
+(Sometimes this does not work as expected because of 1.Pasting the key with quotes 2.Having an extra line in the file.)
+
+### This file is added to gitignore to make sure that you never accidentally commit it.
+
+At the moment we jut have Basic_tests.py file working. 
+
+To test the file you can run 
+*Windows*
+`python -m unittest tests\Basic_tests.py`
+
+*Mac/Linux*
+
+`python -m unittest tests/Basic_tests.py`
+
+
+Developer should model their tests similar to what is written here.
+
+Ideally there will be a separate file for each controller/module. 
+
 
 ## Update Read the Docs 
 

@@ -58,10 +58,11 @@ class MerchantTests(unittest.TestCase):
     # @mock.patch('requests.put', side_effect=mocked_requests_put)
     # def setUp(self, mock_get, mock_post, mock_put):
     def setUp(self): #, mock_get, mock_post, mock_put):
-        filepath = join(dirname(__file__), "..",
-                        "fattmerchant", "test_api_key.txt")
-        with open(filepath) as api_file:
-            self.api_key = api_file.read()
+        try:
+            with open(os.path.join(dirpath,"static_data","API_KEY"), 'r') as key:
+                self.api_key=key.read()
+        except:
+            print("Please create a file ==> 'API_KEY' with the correct API key before running the tests")
 
         merchant = Merchant(self.api_key)
         # merchant.request = mock.Mock()

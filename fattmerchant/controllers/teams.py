@@ -93,7 +93,7 @@ class TeamsController(object):
         """
 
         if "company_name" not in payload or not isinstance(
-            payload["company_name"], (str, unicode)
+            payload["company_name"], str
         ):
             msg = "A company name of type string is required to complete the \
                 request."
@@ -101,7 +101,7 @@ class TeamsController(object):
             raise InvalidRequestDataException(msg)
 
         if "contact_email" not in payload or not isinstance(
-            payload["contact_email"], (str, unicode)
+            payload["contact_email"], str
         ):
             msg = "A contact email of type string is required to complete the \
                 request."

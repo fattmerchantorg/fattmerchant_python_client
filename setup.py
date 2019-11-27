@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="fattmerchant",
-    version="1.1.9",
+    version="2.0.0",
     author="Fattmerchant INC",
     author_email="support@fattmerchant.com",
-    description="Python Client for Fattmerchant's Omni API",
+    description="Python 3.x Client for Fattmerchant's Omni API",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/fattmerchantorg/fattmerchant_python_client",
@@ -17,9 +17,9 @@ setuptools.setup(
         "": ["*.config", "*.txt"],
     },
     install_requires=["ddt", "requests"],
-    python_requires='>=2.7',
+    python_requires='>=3.5',
     classifiers=[
-        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],

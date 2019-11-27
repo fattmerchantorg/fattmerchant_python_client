@@ -115,7 +115,7 @@ class Request(object):
 
         query_strings = []
 
-        for key, value in params.items():
+        for key, value in list(params.items()):
             query_strings.append("{}={}".format(key, value))
 
         return "?{}".format("&".join(query_strings))
