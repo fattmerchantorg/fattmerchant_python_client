@@ -51,7 +51,7 @@ class DepositsController(object):
 
         # Make sure that the start date is of either type string or unicode
         if ("start_date" in options):
-            if (not isinstance(options["start_date"], (str, unicode))):
+            if (not isinstance(options["start_date"], str)):
                 msg = "The start date needs to be of type string. "
 
                 raise InvalidRequestDataException(msg)
@@ -61,7 +61,7 @@ class DepositsController(object):
 
         # Make sure that the end date is of either type string or unicode
         if ("end_date" in options):
-            if (not isinstance(options["end_date"], (str, unicode))):
+            if (not isinstance(options["end_date"], str)):
                 msg = "The end date needs to be of type string."
 
                 raise InvalidRequestDataException(msg)
@@ -116,7 +116,7 @@ class DepositsController(object):
 
         # Make sure that the start date is of either type string or unicode
         if ("start_date" in options):
-            if (not isinstance(options["start_date"], (str, unicode))):
+            if (not isinstance(options["start_date"], str)):
                 msg = "The start date needs to be of type string. "
 
                 raise InvalidRequestDataException(msg)
@@ -126,7 +126,7 @@ class DepositsController(object):
 
         # Make sure that the end date is of either type string or unicode
         if ("end_date" in options):
-            if (not isinstance(options["end_date"], (str, unicode))):
+            if (not isinstance(options["end_date"], str)):
                 msg = "The end date needs to be of type string."
 
                 raise InvalidRequestDataException(msg)

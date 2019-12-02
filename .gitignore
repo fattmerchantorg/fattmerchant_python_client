@@ -105,6 +105,10 @@ venv*
 # mypy
 .mypy_cache/
 
+#API keys and secets
+
+API_KEY
+
 # My test file
 # test.py
 
