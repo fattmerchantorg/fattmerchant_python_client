@@ -9,6 +9,9 @@ class DepositBatch(object):
         self.batch_id = data.get("batch_id")
         """ Id of the deposit batch """
 
+        self.display_batch_id = data.get("display_batch_id")
+        """ Displayed Id of the deposit batch """
+
         self.batched_at = datetime.strptime(
             data.get("batched_at"), '%Y-%m-%d %H:%M:%S'
         ) if data.get("batched_at") else None
@@ -45,6 +48,7 @@ class DepositBatch(object):
     def __repr__(self):
         repr = '{}(' \
             'batch_id: {!r}, ' \
+            'display_batch_id: {!r}, ' \
             'batched_at: {!r}, ' \
             'last_transaction: {!r}, ' \
             'count: {!r}, ' \
@@ -56,6 +60,7 @@ class DepositBatch(object):
             'fees: {!r})'.format(
                 self.__class__.__name__,
                 self.batch_id,
+                self.display_batch_id,
                 self.batched_at,
                 self.last_transaction,
                 self.count,
@@ -77,6 +82,9 @@ class DepositDetails(object):
     def __init__(self, data):
         self.batch_id = data.get("batch_id")
         """ Id of the deposit batch """
+
+        self.display_batch_id = data.get("display_batch_id")
+        """ Displayed Id of the deposit batch """
 
         self.batched_at = datetime.strptime(
             data.get("batched_at"), '%Y-%m-%d %H:%M:%S'
@@ -125,6 +133,7 @@ class DepositDetails(object):
     def __repr__(self):
         repr = '{}(' \
             'batch_id: {!r}, ' \
+            'display_batch_id: {!r}, ' \
             'batched_at: {!r}, ' \
             'auth_id: {!r}, ' \
             'created_at: {!r}, ' \
@@ -140,6 +149,7 @@ class DepositDetails(object):
             'customer_company: {!r})'.format(
                 self.__class__.__name__,
                 self.batch_id,
+                self.display_batch_id,
                 self.batched_at,
                 self.auth_id,
                 self.created_at,
